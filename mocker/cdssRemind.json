@@ -1,0 +1,13 @@
+{
+    "code": 0,
+    "num": "233",
+    "data": [
+        {
+            "level": "error",
+            "message": "胸部透视：患者为【孕妇】，此类检查应谨慎！",
+            "type": "medicalExam"
+        }
+    ],
+    "status": "",
+    "message": ""
+}

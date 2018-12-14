@@ -1,0 +1,126 @@
+@clinic-header-height: 43px;
+.clinic-header-bar {
+    // border-bottom: 1px solid #666;
+    height: @clinic-header-height;
+    line-height: @clinic-header-height;
+    background: #fff;
+    // border-bottom: 1px solid #EEEEEE;
+    margin-left: -20px;
+    padding-left: 20px;
+    margin-right: -20px;
+    padding-right: 20px;
+    span {
+        padding-right: 3px;
+    }
+    a {
+        float: right;
+        padding-right: 20px;
+    }
+    .rate-box {
+        display: inline-block;
+        width: 2px;
+        height: 12px;
+        margin-right: 2px;
+        background: #999;
+    }
+    .rate-tip {
+        background:#333333;
+    }
+}
+
+.ant-collapse .ant-collapse-item:last-child .clinic-header-bar {
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.robot-tip {
+    .ant-tabs {
+        width: 100%;
+        border-radius: 2px;
+        background: #FAFAFA;
+        border: 1px solid #DDDDDD;
+        border-top: none;
+    }
+
+    .ant-collapse {
+        border: none!important;
+        border-radius: 0!important;
+    }
+
+    .ant-collapse > .ant-collapse-item {
+        border-bottom: none!important;
+    }
+
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+        padding: 0!important;
+    }
+
+    .ant-collapse > .ant-collapse-item > .ant-collapse-header .arrow {
+        display: inline-block;
+        line-height: 10px;
+        top: 24px;
+        left: calc(~"100% - 12px");
+    }
+
+    .ant-collapse-content {
+        border-top: none!important;
+    }
+
+    .ant-collapse-content,
+    .ant-collapse-content-active {
+        clear: both;
+        background:  #FAFAFA;
+        margin-left: -20px;
+        padding-left: 20px;
+        margin-right: -20px;
+        padding-right: 20px;
+        background: #FAFAFA;
+    }
+
+
+    .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+        flex: 1;
+        margin-right: 0;
+        // margin-left: -1px!important;
+        border-radius: 0;
+        letter-spacing: .5px;
+        background: #F5F5F5;
+        box-sizing: border-box;
+    }
+
+    .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+        padding-bottom: 0;
+        border: 1px solid #396FFF;
+        z-index: 10;
+        background:#F7F9FF;
+    }
+
+    .ant-tabs-nav {
+        width: 100%;
+    }
+
+    .ant-tabs-nav div:nth-child(1) {
+        display: flex;
+    }
+}
+
+.arrow-up {
+    float: right;
+    width: 9px;
+    height: 5px;
+    margin-top: 17px;
+}
+
+.clinic-line {
+    margin-left: -20px;
+    width: calc(~"100% + 40px");
+    height: 1px;
+    background: #EEEEEE;
+}
+
+.clinic-name {
+    margin-right: 10px;
+    font-size: 14px;
+    color: #333333;
+    letter-spacing: .5px;
+    line-height: 14px;
+}
