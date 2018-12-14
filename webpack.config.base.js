@@ -2,12 +2,23 @@
 const path = require('path');
 const DIST_PATH = path.resolve(__dirname, 'dist');
 const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
+    // 应用入口
+    entry: {
+        app: path.join(__dirname, 'src/index.js') // app.js作为打包的入口
+    },
+    // 输出目录
+    output: {
+        path: path.resolve(__dirname, './dist'), // 打包好之后的输出路径
+        filename: 'js/[name].[hash:8].js',
+        chunkFilename: 'js/[name].[hash:8].js'
+    },
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
         plugins: [
@@ -24,6 +35,7 @@ module.exports = {
             style: path.resolve(__dirname, './src/style')
         }
     },
+    devtool: 'sourcemap',
     optimization: {
         splitChunks: {
             chunks: 'all'
@@ -94,21 +106,32 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: require('autoprefixer')
+            }
+        }),
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'public', 'index.html'),//模板
+            // 模板
+            template: path.resolve(__dirname, 'public', 'index.html'),
             filename: 'index.html',
-            inject: false, //允许插件修改哪些内容，包括head与body
-            hash: true, //是否添加hash值
-            minify: { //压缩HTML文件
-                removeComments: true,//移除HTML中的注释
-                collapseWhitespace: true //删除空白符与换行符
+            // 允许插件修改哪些内容，包括head与body
+            inject: true,
+            // 是否添加hash值
+            hash: true,
+            minify: {
+                // 压缩HTML文件
+                removeComments: true,
+                // 移除HTML中的注释 //删除空白符与换行符
+                collapseWhitespace: true
             },
-            chunksSortMode: 'none' //如果使用webpack4将该配置项设置为'none'
+            // 如果使用webpack4将该配置项设置为'none'
+            chunksSortMode: 'none'
         }),
-         new ExtractTextPlugin({
+        new ExtractTextPlugin({
             filename: 'static/css/styles.css',
             allChunks: true
-        }),
+        })
     ]
 };

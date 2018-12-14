@@ -10,19 +10,15 @@ const paths = require('./paths');
 const publicPath = process.env.PUBLIC_PATH;
 
 module.exports = {
-    devtool: 'source-map',
     // 应用入口
-    // entry: {
-    //     app: path.join(__dirname, '../src/index.js') // app.js作为打包的入口
-    // },
-    entry: path.resolve(__dirname, '../src/index.js'),
+    entry: {
+        app: path.join(__dirname, 'src/index.js') // app.js作为打包的入口
+    },
+    // 输出目录
     output: {
-        path: path.resolve(__dirname, '../dist'), // 打包好之后的输出路径
+        path: path.resolve(__dirname, './dist'), // 打包好之后的输出路径
         filename: 'js/[name].[hash:8].js',
-        chunkFilename: 'js/[name].[hash:8].js',
-        publicPath,
-        devtoolModuleFilenameTemplate:
-        info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
+        chunkFilename: 'js/[name].[hash:8].js'
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
@@ -38,6 +34,20 @@ module.exports = {
             containers: path.resolve(__dirname, '../src/containers'),
             reducers: path.resolve(__dirname, '../src/reducers'),
             style: path.resolve(__dirname, '../src/style')
+        }
+    },
+    devtool: 'source-map',
+    devServer: {
+        compress: true, //服务器返回浏览器的时候是否启动gzip压缩
+        historyApiFallback: true,
+        host: 'localhost',
+        port: 9110,
+        headers: {
+            'Access-Control-Allow-Origin': '*', //CORS跨域
+        },
+        overlay: {
+            warnings: true,
+            errors: true
         }
     },
     optimization: {
@@ -118,22 +128,22 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../public', 'index.html'),//模板
-            // template: path.resolve(__dirname, '../src', 'index.html'),//模板
+            // 模板
+            template: path.resolve(__dirname, '../public', 'index.html'),
             filename: 'index.html',
-            inject: false, //允许插件修改哪些内容，包括head与body
-            hash: true, //是否添加hash值
-            minify: { //压缩HTML文件
-                removeComments: true,//移除HTML中的注释
-                collapseWhitespace: true //删除空白符与换行符
+            // 允许插件修改哪些内容，包括head与body
+            inject: false,
+            // 是否添加hash值
+            hash: true,
+            minify: {
+                // 压缩HTML文件
+                removeComments: true,
+                // 移除HTML中的注释 //删除空白符与换行符
+                collapseWhitespace: true
             },
-            chunksSortMode: 'none' //如果使用webpack4将该配置项设置为'none'
-        }),
-         new ExtractTextPlugin({
-            filename: 'static/css/styles.css',
-            allChunks: true
-        }),
+            // 如果使用webpack4将该配置项设置为'none'
+            chunksSortMode: 'none'
+        })
     ]
 };
