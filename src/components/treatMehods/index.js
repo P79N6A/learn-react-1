@@ -9,6 +9,7 @@ import get from 'lodash/get';
 import {Tabs, Icon} from 'antd';
 import ModalComponent from '../modal';
 import DetailIcon from '../detailIcon';
+import './index.less';
 
 const TabPane = Tabs.TabPane;
 
@@ -165,13 +166,27 @@ class TreatMehods extends Component {
             {
                 treatments.map((treatment, index) => {
                     const cthis = this;
-                    return <TabPane tab={getTabs(treatment.level)} key={index + 1} level={treatment.level} >
-                        {
-                            getDrugComponent('用药方案', treatment, cthis)
-                        }
-                        {
-                            getSurgerComponent('手术方案', treatment, cthis)
-                        }
+                    // 手术方案
+                    const drugLists = get(treatment, 'drugRecommends.list', []);
+                    // 用药方案
+                    const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
+
+                    return <TabPane tab={getTabs(treatment.level)} key={index + 1} level={treatment.level}>
+
+                        <Tabs defaultActiveKey="1" tabPosition="left">
+                            {
+                                drugLists.length
+                                    ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                    : ''
+                            }
+                            {
+                                surgeryLists.length
+                                    ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                    : ''
+                            }
+                            {/* <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, cthis)}</TabPane> */}
+                            {/* <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane> */}
+                        </Tabs>
                     </TabPane>;
                 })
             }

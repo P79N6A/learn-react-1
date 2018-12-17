@@ -31,8 +31,7 @@ class SearchBar extends Component {
         }
         localStorage.setItem('pathName', 'disease');
         localStorage.setItem('title', query);
-        // browserHistory.push('search');
-        this.context.router.history.push("/search");
+        browserHistory.push('search');
         const pathName = 'disease';
         const path = PATH_URL + pathName;
         this.props.searchDisease({body: {query}, path});
