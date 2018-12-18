@@ -146,7 +146,7 @@ const getDiseaseResult = (result, dthis, totalNum) => {
         if (result === 'failure') {
             return <div className="no-recommend">
                 <img src={image_error} />
-                <p>加载错误</p>
+                <p>加载错误啊啊啊</p>
             </div>;
         }
         if (result === 'requesting') {
@@ -255,6 +255,7 @@ class ResultLibrary extends Component {
     }
     render() {
         const result = get(this.props, 'disease.result', []);
+        console.log('result', result);
         const totalNum = get(this.props, 'disease.totalNum', '');
         const activeKey = localStorage.getItem('activeKey');
         return (

@@ -14,10 +14,6 @@ const Search = Input.Search;
 const PATH_URL = "http://yq01-kg-log0.yq01:8700/v1/search/query/";
 
 class SearchBar extends Component {
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     componentDidMount() {
         this.init();
     }

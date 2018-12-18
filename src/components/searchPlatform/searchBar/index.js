@@ -20,24 +20,23 @@ class SearchBar extends Component {
     componentDidMount() {
         // const query = localStorage.getItem('title');
         const query = localStorage.getItem('query');
-
         this.setState({
             query
         });
         // 对query 取括号前的部分处理
         const querySearch = query.split('（')[0].trim();
         this.handleSearch(querySearch);
-        localStorage.setItem('searchQuery', query);
     }
 
     handleSearch = query => {
         localStorage.setItem('query', query);
         // localStorage.setItem('searchQuery', query);
-        if (!query) {
-            // throw Error('query 不能为空');
-            this.elem.style.display = 'block';
-            return;
-        }
+        // if (!query) {
+        //     // throw Error('query 不能为空');
+        //     this.props.saveQuery(query);
+        //     // this.elem.style.display = 'block';
+        //     return;
+        // }
         const pathName = this.props.pathName || 'disease';
         const path = PATH_URL + pathName;
         this.props.searchDisease({body: {query}, path});
@@ -61,7 +60,7 @@ class SearchBar extends Component {
                     onChange={this.handleChange}
                     onSearch={this.handleSearch}
                 />
-                <div className="search-tip" ref={(elem) => this.elem = elem} >请输入查询关键词！</div>
+                {/* <div className="search-tip" ref={(elem) => this.elem = elem} >请输入查询关键词！</div> */}
             </div>
         );
     }

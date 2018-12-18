@@ -31,6 +31,8 @@ class DetailIcon extends Component {
             localStorage.setItem('title', title || name);
             localStorage.setItem('id', kgid);
             localStorage.setItem('pathName', from);
+            localStorage.setItem('query', title || name);
+
             const path = PATH_URL + from;
             const detailObj = {
                 path,

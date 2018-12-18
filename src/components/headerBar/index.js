@@ -77,6 +77,7 @@ class HeaderBar extends Component {
         // window.jsObj.enlargeWindow();
         localStorage.setItem('pathName', 'emr');
         localStorage.setItem('activeKey', 'emr');
+        localStorage.setItem('query', name);
         this.props.switchKey('emr');
         if (!Object.keys(source).length) {
             return;
