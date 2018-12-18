@@ -18,16 +18,21 @@ class SearchBar extends Component {
         query: ''
     }
     componentDidMount() {
-        const query = localStorage.getItem('title');
+        // const query = localStorage.getItem('title');
+        const query = localStorage.getItem('query');
+
         this.setState({
             query
         });
-        this.handleSearch(query);
+        // 对query 取括号前的部分处理
+        const querySearch = query.split('（')[0].trim();
+        this.handleSearch(querySearch);
         localStorage.setItem('searchQuery', query);
     }
 
     handleSearch = query => {
-        localStorage.setItem('searchQuery', query);
+        localStorage.setItem('query', query);
+        // localStorage.setItem('searchQuery', query);
         if (!query) {
             // throw Error('query 不能为空');
             this.elem.style.display = 'block';

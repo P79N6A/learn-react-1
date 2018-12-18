@@ -64,7 +64,7 @@ class DetailEmrArticle extends Component {
         const title = localStorage.getItem('title');
         const type = localStorage.getItem('type');
         const dateTitle = type === '门诊' ? '门诊检查' : '入院检查';
-        console.log('type', type);
+        const date = title.split('_')[0];
 
         return (
             <div className="detail-box" >
@@ -74,7 +74,7 @@ class DetailEmrArticle extends Component {
                             defaultActiveKey="1"
                             tabPosition="left"
                             className="child-Tabs">
-                            <TabPane tab={`${dateTitle} 2018-01-27`} key="1">
+                            <TabPane tab={`${dateTitle} ${date}`} key="1">
                                 <div className="detail-title">{title}</div>
                                 {
                                     getEmrDetailContent(result)

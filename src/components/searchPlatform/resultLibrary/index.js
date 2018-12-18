@@ -17,8 +17,8 @@ import image_error from '../../../style/img/image_error.png';
 // const PATH_URL = process.env.REACT_APP_PATH_URL;
 // const PATH_DETAIL_URL = process.env.REACT_APP_DETAIL_PATH_URL;
 
-const PATH_URL = "http://yq01-kg-log0.yq01:8700/v1/search/query/";
-const PATH_DETAIL_URL = "http://yq01-kg-log0.yq01:8700/v1/search/id/";
+const PATH_URL = 'http://yq01-kg-log0.yq01:8700/v1/search/query/';
+const PATH_DETAIL_URL = 'http://yq01-kg-log0.yq01:8700/v1/search/id/';
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
 
@@ -28,6 +28,10 @@ const gotoDetail = (dthis, id, title, type) => {
     localStorage.setItem('type', type);
     const pathName = localStorage.getItem('pathName');
     console.log(pathName);
+
+    // 病例库 不存query,保持原疾病库query
+    pathName === 'emr' ? '' : localStorage.setItem('query', title);
+
     const detailObj = {
         path: PATH_DETAIL_URL + pathName,
         body: {

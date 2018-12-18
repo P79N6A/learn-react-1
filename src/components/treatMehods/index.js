@@ -162,7 +162,8 @@ class TreatMehods extends Component {
         return <Tabs
             defaultActiveKey="1"
             onChange={callback}
-            type="card">
+            type="card"
+            className="treat-tab">
             {
                 treatments.map((treatment, index) => {
                     const cthis = this;

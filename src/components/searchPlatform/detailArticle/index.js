@@ -70,6 +70,7 @@ const changeLineWidth = result => {
 class DetailArticle extends Component {
     componentDidMount() {
         const result = get(this.props, 'detail.result', null);
+
         // 初始化线的宽度
         changeLineWidth(result);
 

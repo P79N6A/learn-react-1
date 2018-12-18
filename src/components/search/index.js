@@ -30,7 +30,9 @@ class SearchBar extends Component {
             return;
         }
         localStorage.setItem('pathName', 'disease');
-        localStorage.setItem('title', query);
+        // 保存query
+        localStorage.setItem('query', query);
+        // localStorage.setItem('title', query);
         browserHistory.push('search');
         const pathName = 'disease';
         const path = PATH_URL + pathName;
