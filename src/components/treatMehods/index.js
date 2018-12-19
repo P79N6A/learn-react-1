@@ -4,6 +4,7 @@
  */
 
 import React, {Component} from 'react';
+import {Link, browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import {Tabs, Icon} from 'antd';
@@ -19,28 +20,61 @@ const getDrugComponent = (title, treatment, cthis) => {
     if (!drugLists.length) {
         return '';
     }
-    return [
+
         // <div>
         //     <span className="drug-title">{title}:</span>
         //     {desc ? <Icon className="icon-search" type="question-circle" theme="outlined"
         //         onClick={cthis.showModal.bind(this, title, desc)} /> : ''}
         // </div>,
-        drugLists.map((list, index) => {
-            const {name, method, kgid} = list;
-            return <div className="recommend-bar" key={index}>
-                <div className="treat-wrap">
-                    <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
-                    {
-                        kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
-                    }
-                </div>
-                <div className="usage-text">
-                    <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
-                </div>
-            </div>;
-        }),
+
+    return  drugLists.map((categoryList, index) => {
+        const {kgid, category, drugList} = categoryList;
+        const MAXLEN = 2;
+        return <div className="category-bar" key={index}>
+            <div className="drug-category">{category}</div>
+            {
+                drugList && drugList.map((list, index) => {
+                    const {name, method, kgid} = list;
+
+                    return <div className="recommend-bar" key={index}>
+                        <div className="treat-wrap">
+                            <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
+                            {
+                                kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
+                            }
+                        </div>
+                        <div className="usage-text">
+                            <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
+                        </div>
+                    </div>;
+                })
+            }
+            {
+                drugList
+                    && drugList.length > MAXLEN
+                    && <Link to="/drugDeail" className="check-more">查看更多</Link>
+            }
+        </div>
+    })
+
+
+        // drugLists.map((list, index) => {
+        //     const {name, method, kgid} = list;
+
+        //     return <div className="recommend-bar" key={index}>
+        //         <div className="treat-wrap">
+        //             <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
+        //             {
+        //                 kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
+        //             }
+        //         </div>
+        //         <div className="usage-text">
+        //             <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
+        //         </div>
+        //     </div>;
+        // }),
         // <div className="check-more">查看全部(13)</div>
-    ];
+
 };
 const getSurgerComponent = (title, treatment, cthis) => {
     const desc = get(treatment, 'surgeryRecommends.desc', '');

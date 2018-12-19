@@ -103,9 +103,7 @@ class HeaderBar extends Component {
                 </span>
 
                 <b>{getRate(switchRate)}</b>
-
                 <Link to="/search" onClick={this.setActiveKey.bind(this, source, name)}>相似病历</Link>
-
             </div>
         );
     }
