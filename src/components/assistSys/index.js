@@ -3,11 +3,13 @@
  * @author lixiaoqin@baidu.com
  */
 import React, {Component} from 'react';
+import {Link, browserHistory} from 'react-router';
 import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import Search from '../search';
 import Remind from '../remind';
 import ClinicRecommend from '../clinicRecommend';
+
 import 'style/antd/antd.css';
 import './index.less';
 import image_empty from '../../style/img/image_empty.png';
@@ -72,7 +74,7 @@ class AssistSys extends Component {
             <div ref={elem => this.nv = elem} className="tip-wrapper">
                 <Search {...this.props}></Search>
                 <div className="tip-before"></div>
-                <div className="robot-tip">
+                <div className="tip-content">
                     <div className="header-wrapper">
                         <div className="cdss-header-word">智能提醒</div>
                         <div className="cdss-header-tip">
@@ -90,7 +92,7 @@ class AssistSys extends Component {
                 </div>
                 <div className="tip-after"></div>
 
-                <div className="robot-tip">
+                <div className="tip-content">
                     <div className="cdss-header-word">临床建议</div>
                     {
                         advice && advice.length ? <div className="tip-count">{advice.length}项建议</div> : ''
@@ -113,6 +115,16 @@ class AssistSys extends Component {
                         loadError(loadStatus)
                     }
                 </div>
+
+                {
+                    advice && advice.length
+                        ? <div className="disclaimer-content">
+                                <Link to="/disclaimer" className="disclaimer-title">免责声明</Link>
+                                <p className="disclaimer-note">以上资料及内容仅供参考，实际情况以医生诊断为准</p>
+                            </div>
+                        : ''
+                }
+
             </div >
         );
     }

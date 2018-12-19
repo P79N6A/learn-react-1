@@ -13,6 +13,11 @@
         }
     }
 
+    .ant-tabs-vertical.ant-tabs-left > .ant-tabs-content {
+        padding: 0;
+        padding-bottom: 14px;
+    }
+
     .cdss-recommend-box .recommend-bar > div {
         border-left: none;
         border-right: none;
@@ -60,14 +65,39 @@
         border-bottom: 1px solid #DDDDDD!important;
         border-right: 1px solid #DDDDDD!important;
         min-height: 226px;
-        max-height: 400px;
         background: #fff;
-        overflow-y: scroll;
+
+        .auxi-name {
+            padding-right: 0;
+        }
+
+        .recommend-bar {
+            padding: 0;
+        }
+
+        .icon-search {
+            margin-left: 0;
+        }
     }
 
     .ant-tabs-vertical.ant-tabs-left > .ant-tabs-bar .ant-tabs-nav-wrap {
         z-index: 1000;
         margin-right: -1px!important;
     }
+
+    .check-more {
+        margin: 14px;
+        font-size: 14px;
+        color: #4175FA;
+        cursor: pointer;
+    }
+
+    .usage-text {
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        -o-text-overflow:ellipsis;
+        overflow:hidden;
+    }
 }
+
 

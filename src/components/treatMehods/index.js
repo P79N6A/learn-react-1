@@ -20,11 +20,11 @@ const getDrugComponent = (title, treatment, cthis) => {
         return '';
     }
     return [
-        <div>
-            <span className="drug-title">{title}:</span>
-            {desc ? <Icon className="icon-search" type="question-circle" theme="outlined"
-                onClick={cthis.showModal.bind(this, title, desc)} /> : ''}
-        </div>,
+        // <div>
+        //     <span className="drug-title">{title}:</span>
+        //     {desc ? <Icon className="icon-search" type="question-circle" theme="outlined"
+        //         onClick={cthis.showModal.bind(this, title, desc)} /> : ''}
+        // </div>,
         drugLists.map((list, index) => {
             const {name, method, kgid} = list;
             return <div className="recommend-bar" key={index}>
@@ -34,11 +34,13 @@ const getDrugComponent = (title, treatment, cthis) => {
                         kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
                     }
                 </div>
-                <div>
+                <div className="usage-text">
                     <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
                 </div>
             </div>;
-        })];
+        }),
+        // <div className="check-more">查看全部(13)</div>
+    ];
 };
 const getSurgerComponent = (title, treatment, cthis) => {
     const desc = get(treatment, 'surgeryRecommends.desc', '');
@@ -47,16 +49,15 @@ const getSurgerComponent = (title, treatment, cthis) => {
         return '';
     }
     return [
-        <div>
-            <span className="surgery-title">{title}</span>
-            {desc ? <Icon className="icon-search" type="question-circle" theme="outlined"
-                onClick={cthis.showModal.bind(this, title, desc)} /> : ''}
-
-        </div>,
+        // <div>
+        //     <span className="surgery-title">{title}</span>
+        //     {desc ? <Icon className="icon-search" type="question-circle" theme="outlined"
+        //         onClick={cthis.showModal.bind(this, title, desc)} /> : ''}
+        // </div>,
         surgeryLists.map((list, index) => {
             const {approach, attention, indication, name, procedure, kgid} = list;
             return <div className="recommend-bar" key={index}>
-                <div>
+                <div className="treat-wrap">
                     <span className="auxi-name treat" data-clipboard-text={name}>{name}</span>
                     {
                         kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
@@ -151,10 +152,26 @@ class TreatMehods extends Component {
                 {
                     treatments.map((treatment, index) => {
                         const cthis = this;
-                        return [
-                            getDrugComponent('用药方案', treatment, cthis),
-                            getSurgerComponent('手术方案', treatment, cthis)
-                        ];
+                        // 手术方案
+                        const drugLists = get(treatment, 'drugRecommends.list', []);
+                        // 用药方案
+                        const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
+                        // return [
+                        //     getDrugComponent('用药方案', treatment, cthis),
+                        //     getSurgerComponent('手术方案', treatment, cthis)
+                        // ];
+                        return  <Tabs defaultActiveKey="1" tabPosition="left">
+                                {
+                                    drugLists.length
+                                        ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                        : ''
+                                }
+                                {
+                                    surgeryLists.length
+                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                        : ''
+                                }
+                            </Tabs>;
                     })
                 }
             </div>;
@@ -185,8 +202,6 @@ class TreatMehods extends Component {
                                     ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
                                     : ''
                             }
-                            {/* <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, cthis)}</TabPane> */}
-                            {/* <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane> */}
                         </Tabs>
                     </TabPane>;
                 })
