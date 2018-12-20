@@ -14,13 +14,9 @@ import './index.less';
 
 const TabPane = Tabs.TabPane;
 
-const getDrugComponent = (title, treatment, index, cthis) => {
+const getDrugComponent = (title, treatment, id, cthis) => {
     const desc = get(treatment, 'drugRecommends.desc', '');
     const drugLists = get(treatment, 'drugRecommends.list', []);
-    const drugId = index;
-    console.log('index', index);
-
-    console.log('drugId', drugId);
 
     if (!drugLists.length) {
         return '';
@@ -58,7 +54,7 @@ const getDrugComponent = (title, treatment, index, cthis) => {
             {
                 drugList
                     && drugList.length > MAXLEN
-                    && <Link to={`/drugDeail/${drugId}`} className="check-more">查看更多</Link>
+                    && <Link to={`/drugDeail/${id}`} className="check-more">查看更多</Link>
             }
         </div>
     })
@@ -148,7 +144,7 @@ const getTabs = level => {
 function callback(key) {
     console.log(key);
 }
-const getTreatMehods = (treatments, dthis) => {
+const getTreatMehods = (treatments, index, dthis) => {
 
     if (!treatments.length) {
         return '';
@@ -158,7 +154,7 @@ const getTreatMehods = (treatments, dthis) => {
             <span className="treat-name">治疗方案推荐：</span>
         </div>
         {
-            dthis.diffLevelTreatments(treatments)
+            dthis.diffLevelTreatments(treatments, index)
         }
     </div>;
 };
@@ -182,16 +178,17 @@ class TreatMehods extends Component {
             visible: false
         });
     }
-    diffLevelTreatments = treatments => {
+    diffLevelTreatments = (treatments, index) => {
         let levelSum = 0;
         treatments.map((treatment, index) => (
             levelSum += treatment.level
         ));
+        let id = index;
+
         if (levelSum === 0) {
             return <div className="common-treatments">
                 {
                     treatments.map((treatment, index) => {
-                        console.log('index111', index);
 
                         const cthis = this;
                         // 手术方案
@@ -205,12 +202,12 @@ class TreatMehods extends Component {
                         return  <Tabs defaultActiveKey="1" tabPosition="left">
                                 {
                                     drugLists.length
-                                        ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, index, cthis)}</TabPane>
+                                        ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
                                         : ''
                                 }
                                 {
                                     surgeryLists.length
-                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, index, cthis)}</TabPane>
+                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
                                         : ''
                                 }
                             </Tabs>;
@@ -225,6 +222,8 @@ class TreatMehods extends Component {
             className="treat-tab">
             {
                 treatments.map((treatment, index) => {
+                    console.log('index', index);
+
                     const cthis = this;
                     // 手术方案
                     const drugLists = get(treatment, 'drugRecommends.list', []);
@@ -236,12 +235,12 @@ class TreatMehods extends Component {
                         <Tabs defaultActiveKey="1" tabPosition="left">
                             {
                                 drugLists.length
-                                    ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                    ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
                                     : ''
                             }
                             {
                                 surgeryLists.length
-                                    ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                    ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
                                     : ''
                             }
                         </Tabs>
@@ -252,11 +251,12 @@ class TreatMehods extends Component {
     }
     render() {
         const treatments = get(this.props, 'treatments', []);
+        const index = get(this.props, 'index', 0);
 
         return (
             <div className="auxiliary-box">
                 {
-                    getTreatMehods(treatments, this)
+                    getTreatMehods(treatments, index, this)
                 }
                 <ModalComponent name={this.state.name} desc={this.state.desc}
                     onCancel={this.handleCancel} visible={this.state.visible}></ModalComponent>

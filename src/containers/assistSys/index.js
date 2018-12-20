@@ -42,7 +42,8 @@ const mapStateToProps = state => {
                 }]
             }
         },
-        "advice": [{
+        "advice": [
+            {
             "auxiliaryDiagnosis": {
                 "sign": [{
                     "kgid": "Y018kb7dz",
@@ -426,35 +427,35 @@ const mapStateToProps = state => {
                     "desc": "推荐理由",
                     "list": [{
                         "kgid": "",
-                        "name": "肺病损切除术111"
+                        "name": "肺病损切除术222"
                     },
                     {
                         "kgid": "",
-                        "name": "肺病损切除术111"
+                        "name": "肺病损切除术222"
                     },
                     {
                         "kgid": "",
-                        "name": "肺病损切除术111"
+                        "name": "肺病损切除术222"
                     },
                     {
                         "kgid": "",
-                        "name": "肺病损切除术111"
+                        "name": "肺病损切除术222"
                     },
                     {
                         "kgid": "",
-                        "name": "肺病损切除术111"
+                        "name": "肺病损切除术222"
                     },
                     {
                         "kgid": "",
-                        "name": "肺病损切除术111"
+                        "name": "肺病损切除术222"
                     },
                     {
                         "kgid": "",
-                        "name": "肺病损切除术111"
+                        "name": "肺病损切除术222"
                     },
                     {
                         "kgid": "",
-                        "name": "肺病损切除术111"
+                        "name": "肺病损切除术222"
                     }]
                 }
             }, {

@@ -108,7 +108,7 @@ class ClinicRecommend extends Component {
                                         <TestRecommends testRecommends={testRecommends}
                                             examRecommends={examRecommends}></TestRecommends>
 
-                                        <TreatMehods treatments={treatments} {...this.props}></TreatMehods>
+                                        <TreatMehods treatments={treatments} index={index} {...this.props}></TreatMehods>
                                         <span className="copied">已复制</span>
                                     </div>
                                 </Panel>;

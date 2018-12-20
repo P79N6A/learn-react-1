@@ -215,14 +215,9 @@ class DrugDetail extends Component {
     render() {
 
         const {advice, alert, loadStatus} = this.props;
-        // todo 这里 需要从url传来的参数，展示advice 的第几项;
-
+        // 从url中获取展示那个advice下的详情
         const index = this.props.params.id;
         const treatments = get(advice[index], 'treatments', []);
-        console.log('treatments', treatments);
-        // const treatments = advice[index].treatments;
-
-        console.log('treatments', treatments);
 
         return (
             <div className="drug-detail">
