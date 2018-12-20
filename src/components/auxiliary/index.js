@@ -32,7 +32,7 @@ const getAuxiliaryContent = (name, auxis) => {
                     }
                     return polaritys + ' auxi-name';
                 };
-                return <div>
+                return <div key={index}>
                     <span key={index} className={getClassName(polarity)}
                         data-clipboard-text={name}>{name}</span>
                 </div>;

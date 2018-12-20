@@ -6,19 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import AssistSys from 'components/assistSys';
+import DrugDetail from 'components/drugDetail';
 import get from 'lodash/get';
-import {websocketConnect} from 'actions/wsConnect';
-import {searchDetail} from 'actions/searchPlatform/detailRequest';
-import {searchDisease, switchKey, saveQuery} from 'actions/searchPlatform/searchRequest';
 import {sendEmrDetail} from 'actions/emrTable';
 
 const mapStateToProps = state => {
-    // const wsDatas = get(state, 'ws.wsResult', '{}');
-    // const parseWsData = JSON.parse(wsDatas);
-    // const {advice = null, alert = null, source = {}} = parseWsData;
-    // const loadStatus = get(state, 'ws.loadStatus', '');
-
     // const assistData = get(state, 'emr.result', '{}');
     const assistData = {
         "code": 0,
@@ -505,7 +497,6 @@ const mapStateToProps = state => {
             "medicalTests": "血常规示WBC　21.2×10<sup>9</sup>/L，中性粒细胞比值85.20%，淋巴细胞比值9.10%，Hb　121g/L，Pt　223×10<sup>9</sup>/L；大、小便常规，肾功能，电解质，血脂，免疫学检查正常。肝功能：总蛋白65.4g/L，白蛋白29.4g/L，球蛋白36g/L，余正常。血沉87mm/h；CRP 211mg/L；空腹血糖7.2mmol/L；餐后血糖18mmol/L，动脉血气：pH　7.467，PO<sub>2</sub> 60.9mmHg，PCO<sub>2</sub>43.1mmHg。"
         }
     };
-
     const {advice = [], alert = {}, source = {}} = assistData;
     const loadStatus = get(state, 'emr.loadStatus', '');
     const pathName = get(state, 'searchDisease.name.pathName', '');
@@ -519,15 +510,15 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = {websocketConnect, searchDetail, searchDisease, switchKey, saveQuery, sendEmrDetail};
+const mapDispatchToProps = {sendEmrDetail};
 
-const ConnectedAssistSys = connect(mapStateToProps, mapDispatchToProps)(AssistSys);
+const ConnectedDrugDetail = connect(mapStateToProps, mapDispatchToProps)(DrugDetail);
 
-ConnectedAssistSys.propTypes = {
+ConnectedDrugDetail.propTypes = {
 
 };
 
-ConnectedAssistSys.defaultProps = {
+ConnectedDrugDetail.defaultProps = {
 };
 
-export default ConnectedAssistSys;
+export default ConnectedDrugDetail;

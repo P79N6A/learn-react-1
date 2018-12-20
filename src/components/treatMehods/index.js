@@ -14,9 +14,14 @@ import './index.less';
 
 const TabPane = Tabs.TabPane;
 
-const getDrugComponent = (title, treatment, cthis) => {
+const getDrugComponent = (title, treatment, index, cthis) => {
     const desc = get(treatment, 'drugRecommends.desc', '');
     const drugLists = get(treatment, 'drugRecommends.list', []);
+    const drugId = index;
+    console.log('index', index);
+
+    console.log('drugId', drugId);
+
     if (!drugLists.length) {
         return '';
     }
@@ -30,6 +35,7 @@ const getDrugComponent = (title, treatment, cthis) => {
     return  drugLists.map((categoryList, index) => {
         const {kgid, category, drugList} = categoryList;
         const MAXLEN = 2;
+
         return <div className="category-bar" key={index}>
             <div className="drug-category">{category}</div>
             {
@@ -52,7 +58,7 @@ const getDrugComponent = (title, treatment, cthis) => {
             {
                 drugList
                     && drugList.length > MAXLEN
-                    && <Link to="/drugDeail" className="check-more">查看更多</Link>
+                    && <Link to={`/drugDeail/${drugId}`} className="check-more">查看更多</Link>
             }
         </div>
     })
@@ -185,6 +191,8 @@ class TreatMehods extends Component {
             return <div className="common-treatments">
                 {
                     treatments.map((treatment, index) => {
+                        console.log('index111', index);
+
                         const cthis = this;
                         // 手术方案
                         const drugLists = get(treatment, 'drugRecommends.list', []);
@@ -197,12 +205,12 @@ class TreatMehods extends Component {
                         return  <Tabs defaultActiveKey="1" tabPosition="left">
                                 {
                                     drugLists.length
-                                        ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                        ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, index, cthis)}</TabPane>
                                         : ''
                                 }
                                 {
                                     surgeryLists.length
-                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, index, cthis)}</TabPane>
                                         : ''
                                 }
                             </Tabs>;

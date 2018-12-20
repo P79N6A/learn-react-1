@@ -100,7 +100,7 @@ class Remind extends Component {
                 {
                     dataMore && dataMore.length && dataMore.map((d, index) => {
                         const level = d.level;
-                        return <div>
+                        return <div key={index}>
                             <div key={index} className="content-space no-wrap">
                                 <div className="moretip-wrapper">
                                     <div className="tip-line"></div>

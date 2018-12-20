@@ -21,9 +21,15 @@ const Disclaimer = (location, cb) => {
     }, 'Disclaimer');
 };
 
+// const DrugDetail = (location, cb) => {
+//     require.ensure([], require => {
+//         cb(null, require('../components/drugDetail').default);
+//     }, 'DrugDetail');
+// };
+
 const DrugDetail = (location, cb) => {
     require.ensure([], require => {
-        cb(null, require('../components/drugDetail').default);
+        cb(null, require('../containers/drugDetail').default);
     }, 'DrugDetail');
 };
 
@@ -33,7 +39,7 @@ export default browserHistory => (
         <Route path="/search" getComponents={SearchPlatform}></Route>
         <Route path="/detail" getComponents={SearchPlatformDetail}></Route>
         <Route path="/disclaimer" getComponents={Disclaimer}></Route>
-        <Route path="/drugDeail" getComponents={DrugDetail}></Route>
+        <Route path="/drugDeail/:id" getComponents={DrugDetail}></Route>
     </Router>
 );
 
