@@ -66,6 +66,10 @@ class AssistSys extends Component {
         });
     };
 
+    enlargeWindow = () => {
+        // window.jsObj.showDetailWindow('disclaimer');
+    }
+
     render() {
         const {advice, alert, loadStatus} = this.props;
         const errorNum = get(alert.data, 'errorNum', 0);
@@ -119,7 +123,7 @@ class AssistSys extends Component {
                 {
                     advice && advice.length
                         ? <div className="disclaimer-content">
-                                <Link to="/disclaimer" className="disclaimer-title">免责声明</Link>
+                                <Link to="/disclaimer" className="disclaimer-title" onClick={this.enlargeWindow}>免责声明</Link>
                                 <p className="disclaimer-note">以上资料及内容仅供参考，实际情况以医生诊断为准</p>
                             </div>
                         : ''

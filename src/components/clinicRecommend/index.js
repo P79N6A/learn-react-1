@@ -28,21 +28,12 @@ clipboard.on('success', function (e) {
     console.log(pos.left);
     console.log(pos.top);
 
-    if ($(e.trigger).hasClass('treat')) {
-        $('.copied').css({
-            display: 'inline-block',
-            position: 'absolute',
-            left: pos.left + 30,
-            top: pos.top + 190
-        });
-    } else {
-        $('.copied').css({
-            display: 'inline-block',
-            position: 'absolute',
-            left: pos.left + 30,
-            top: pos.top
-        });
-    }
+    $('.copied').css({
+        display: 'inline-block',
+        position: 'absolute',
+        left: pos.left + 80,
+        top: pos.top
+    });
 
     setTimeout(function () {
         $('.copied').css({

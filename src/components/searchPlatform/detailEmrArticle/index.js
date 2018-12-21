@@ -39,16 +39,28 @@ const getEmrDetailContent = result => {
     }
     return result.length && result.map((del, index) => {
         const delObj = !Object.entries ? objectEntries()(del) : Object.entries(del);
+
         return delObj.map((dels, index) => {
             return <div key={index}>
                 <div>
                     <div className="emr-detail">
                         {
-                            dels[1] ?
+                            dels[1] && !Array.isArray(dels[1]) ?
                                 <span>
                                     <span className="emrDetail-item">{dels[0]}</span>
                                     <span className="emrDetail-info">{dels[1]}</span>
                                 </span>
+                                : ''
+                        }
+
+                        {
+                            dels[1] && Array.isArray(dels[1]) ?
+                                dels[1].map((item, index) => {
+                                    return  <span>
+                                                <span className="emrDetail-item">{item['诊断项']}</span>
+                                                <span className="emrDetail-info">{item['诊断结果']}</span>
+                                            </span>
+                                })
                                 : ''
                         }
 
@@ -61,6 +73,7 @@ const getEmrDetailContent = result => {
 class DetailEmrArticle extends Component {
     render() {
         const result = get(this.props, 'detail.result', []);
+        console.log('result', result);
         const title = localStorage.getItem('title');
         const type = localStorage.getItem('type');
         const dateTitle = type === '门诊' ? '门诊检查' : '入院检查';
@@ -82,8 +95,6 @@ class DetailEmrArticle extends Component {
                             </TabPane>
                         </Tabs>
                     </TabPane>
-                    {/* <TabPane tab="检验信息" disabled key="2">Tab 2</TabPane>
-                    <TabPane tab="检查信息" disabled key="3">Tab 3</TabPane> */}
                 </Tabs>
             </div>
         );

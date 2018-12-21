@@ -216,7 +216,10 @@ class DrugDetail extends Component {
 
         const {advice, alert, loadStatus} = this.props;
         // 从url中获取展示那个advice下的详情
-        const index = this.props.params.id;
+        // const index = this.props.params.id;
+        const index = localStorage.getItem('id');
+        console.log('index', index);
+
         const treatments = get(advice[index], 'treatments', []);
 
         return (

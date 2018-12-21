@@ -146,7 +146,7 @@ const getDiseaseResult = (result, dthis, totalNum) => {
         if (result === 'failure') {
             return <div className="no-recommend">
                 <img src={image_error} />
-                <p>加载错误啊啊啊</p>
+                <p>加载错误</p>
             </div>;
         }
         if (result === 'requesting') {
@@ -196,11 +196,11 @@ class ResultLibrary extends Component {
         this.props.switchKey(key);
         localStorage.setItem('pathName', key);
         const path = PATH_URL + key;
-        const query = localStorage.getItem('searchQuery') || this.props.queryName;
-        if (!query) {
-            // throw Error('query 不能为空');
-            return;
-        }
+        const query = this.props.queryName;
+        // if (!query) {
+        //     // throw Error('query 不能为空');
+        //     return;
+        // }
         this.props.searchDisease({
             body: {query},
             path
@@ -255,9 +255,9 @@ class ResultLibrary extends Component {
     }
     render() {
         const result = get(this.props, 'disease.result', []);
-        console.log('result', result);
         const totalNum = get(this.props, 'disease.totalNum', '');
         const activeKey = localStorage.getItem('activeKey');
+
         return (
             <div className="search-box search-tabs-wrap">
                 <Tabs onChange={this.handleCallback} animated={false} defaultActiveKey={activeKey || 'disease'} >

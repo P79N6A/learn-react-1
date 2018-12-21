@@ -28,12 +28,14 @@ class DetailIcon extends Component {
         try {
             // 放大窗口
             // window.jsObj.enlargeWindow();
+            // window.jsObj.showDetailWindow('/detail');
             localStorage.setItem('title', title || name);
             localStorage.setItem('id', kgid);
             localStorage.setItem('pathName', from);
             localStorage.setItem('query', title || name);
 
             const path = PATH_URL + from;
+            console.log('path', path);
             const detailObj = {
                 path,
                 body: {

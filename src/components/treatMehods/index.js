@@ -14,6 +14,13 @@ import './index.less';
 
 const TabPane = Tabs.TabPane;
 
+const enlargeWindow = (id, e) => {
+    e.stopPropagation();
+    localStorage.setItem('id', id);
+    // window.jsObj.showDetailWindow('drugDetail');
+    browserHistory.push('drugDetail');
+};
+
 const getDrugComponent = (title, treatment, id, cthis) => {
     const desc = get(treatment, 'drugRecommends.desc', '');
     const drugLists = get(treatment, 'drugRecommends.list', []);
@@ -33,6 +40,7 @@ const getDrugComponent = (title, treatment, id, cthis) => {
         const MAXLEN = 2;
 
         return <div className="category-bar" key={index}>
+        <div className="category-line"></div>
             <div className="drug-category">{category}</div>
             {
                 drugList && drugList.map((list, index) => {
@@ -54,7 +62,8 @@ const getDrugComponent = (title, treatment, id, cthis) => {
             {
                 drugList
                     && drugList.length > MAXLEN
-                    && <Link to={`/drugDeail/${id}`} className="check-more">查看更多</Link>
+                    // && <Link to={`/drugDeail/${id}`} className="check-more">查看更多</Link>
+                    && <span className="check-more" onClick={(e) => enlargeWindow(id, e)}>查看更多</span>
             }
         </div>
     })
@@ -199,7 +208,7 @@ class TreatMehods extends Component {
                         //     getDrugComponent('用药方案', treatment, cthis),
                         //     getSurgerComponent('手术方案', treatment, cthis)
                         // ];
-                        return  <Tabs defaultActiveKey="1" tabPosition="left">
+                        return  <Tabs defaultActiveKey="1">
                                 {
                                     drugLists.length
                                         ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
@@ -222,8 +231,6 @@ class TreatMehods extends Component {
             className="treat-tab">
             {
                 treatments.map((treatment, index) => {
-                    console.log('index', index);
-
                     const cthis = this;
                     // 手术方案
                     const drugLists = get(treatment, 'drugRecommends.list', []);
@@ -232,7 +239,7 @@ class TreatMehods extends Component {
 
                     return <TabPane tab={getTabs(treatment.level)} key={index + 1} level={treatment.level}>
 
-                        <Tabs defaultActiveKey="1" tabPosition="left">
+                        <Tabs defaultActiveKey="1">
                             {
                                 drugLists.length
                                     ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>

@@ -3,94 +3,26 @@
         border: none!important;
     }
 
-    .ant-tabs.ant-tabs-left {
-        border-top: none!important;
-        border-left: none!important;
-        border-bottom: none!important;
-
-        .recommend-bar {
-            background: #fff;
-        }
+    .ant-tabs-tab {
+        padding: 12px 0;
     }
 
-    .ant-tabs-vertical.ant-tabs-left > .ant-tabs-content {
-        padding: 0;
-        padding-bottom: 14px;
+    .recommend-bar {
+        padding: 6px 0!important;
     }
 
+    .ant-tabs-bar {
+        margin: 0 0 10px 0;
+    }
     .cdss-recommend-box .recommend-bar > div {
         border-left: none;
         border-right: none;
     }
 
-    .ant-tabs-left-bar .ant-tabs-tab {
-        width: 18px;
-        height: 113px;
-        margin: 0!important;
-        border:1px solid #DDDDDD;
-        padding-top: 22px!important;
-        padding-left: 8px!important;
-        padding-right: 21px!important;
-        font-size: 12px;
-        white-space: normal;
-        color:#505050;
-    }
-
-    .ant-tabs-left-bar .ant-tabs-tab:nth-child(2) {
-        border-top: none;
-        border-left: 1px solid #DDDDDD!important;
-        border-right: 1px solid #DDDDDD!important;
-    }
-
-    .ant-tabs-left-bar .ant-tabs-tab-active {
-        background:#fff;
-        border-right: 1px solid #fff;
-    }
-
-    .ant-tabs-left .ant-tabs-tab:not(.ant-tabs-tab-active) {
-        background: #F5F5F5;
-        border-right: 2px solid #DDDDDD!important;
-    }
-
-    .ant-tabs-left-bar .ant-tabs-tab-active.ant-tabs-tab:nth-child(2) {
-        border-right: 2px solid #fff!important;
-    }
-
-    .ant-tabs-vertical.ant-tabs-left > .ant-tabs-bar .ant-tabs-ink-bar {
-        display: none!important;
-    }
-
-    .ant-tabs-left-content {
-        border-top: 1px solid #DDDDDD!important;
-        border-bottom: 1px solid #DDDDDD!important;
-        border-right: 1px solid #DDDDDD!important;
-        min-height: 226px;
-        background: #fff;
-
-        .auxi-name {
-            padding-right: 0;
-        }
-
-        .recommend-bar {
-            padding: 0;
-        }
-
-        .icon-search {
-            margin-left: 0;
-        }
-
-        .auxi-name {
-            margin-top: 6px;
-        }
-    }
-
-    .ant-tabs-vertical.ant-tabs-left > .ant-tabs-bar .ant-tabs-nav-wrap {
-        z-index: 1000;
-        margin-right: -1px!important;
-    }
-
     .check-more {
-        margin: 14px;
+        display: inline-block;
+        margin-top: 8px;
+        margin-bottom: 14px;
         font-size: 14px;
         color: #4175FA;
         cursor: pointer;
@@ -104,12 +36,38 @@
     }
 
     .drug-category {
-        margin-top: 12px;
-        margin-left: 13px;
+        margin-top: 16px;
+        margin-bottom: 8px;
         font-size: 14px;
-        color: black;
-        font-weight: 600;
+        color: #333333;
+        // color: black;
+        line-height: 16px;
+        font-weight: 500;
     }
+
+    .treat {
+        line-height: 20px;
+        padding-left: 0!important;
+    }
+
+    .recommend-bar .auxi-name {
+        margin-top: 0;
+        padding-right: 10px!important;
+    }
+
+    .category-line {
+        width: 100%;
+        height: 1px;
+        background: #EEEEEE;
+    }
+}
+
+// .category-bar:nth-child(1) .category-line {
+//     display: none;
+// }
+
+.category-bar:nth-child(1) {
+    background: red;
 }
 
 

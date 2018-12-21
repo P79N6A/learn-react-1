@@ -74,7 +74,7 @@ const mapStateToProps = state => {
                 "kgid": "100001",
                 "name": "胸部X线检查"
             }],
-            "name": "支气管哮喘1",
+            "name": "肚子痛",
             "rate": 0.917,
             "kgid": "100001",
             "testRecommends": [{
@@ -300,7 +300,7 @@ const mapStateToProps = state => {
                 "kgid": "100001",
                 "name": "胸部X线检查"
             }],
-            "name": "支气管哮喘2",
+            "name": "肚子痛",
             "rate": 0.917,
             "kgid": "100001",
             "testRecommends": [{

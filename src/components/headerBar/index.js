@@ -50,11 +50,6 @@ const getRate = rate => {
 
 };
 class HeaderBar extends Component {
-
-    static contextTypes = {
-        router: PropTypes.object.isRequired
-    };
-
     componentDidMount() {
         this.init();
     }
@@ -75,6 +70,8 @@ class HeaderBar extends Component {
     }
     setActiveKey = (source, name) => {
         // window.jsObj.enlargeWindow();
+        // window.jsObj.showDetailWindow('/search');
+
         localStorage.setItem('pathName', 'emr');
         localStorage.setItem('activeKey', 'emr');
         localStorage.setItem('query', name);

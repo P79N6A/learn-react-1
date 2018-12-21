@@ -25,10 +25,11 @@ class SearchBar extends Component {
             this.elem.style.display = 'block';
             return;
         }
+        // window.jsObj.enlargeWindow();
+        // window.jsObj.showDetailWindow('/search');
         localStorage.setItem('pathName', 'disease');
         // 保存query
         localStorage.setItem('query', query);
-        // localStorage.setItem('title', query);
         browserHistory.push('search');
         const pathName = 'disease';
         const path = PATH_URL + pathName;

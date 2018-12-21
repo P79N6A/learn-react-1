@@ -24,7 +24,7 @@ class SearchBar extends Component {
             query
         });
         // 对query 取括号前的部分处理
-        const querySearch = query.split('（')[0].trim();
+        const querySearch = query !== null ? query.split('（')[0].trim() : '';
         this.handleSearch(querySearch);
     }
 
@@ -37,7 +37,11 @@ class SearchBar extends Component {
         //     // this.elem.style.display = 'block';
         //     return;
         // }
-        const pathName = this.props.pathName || 'disease';
+
+
+        // 从 localStorage里面获取pathName
+        // const pathName = this.props.pathName || 'disease';
+        const pathName = localStorage.getItem('pathName') || 'disease';
         const path = PATH_URL + pathName;
         this.props.searchDisease({body: {query}, path});
         this.props.saveQuery(query);
