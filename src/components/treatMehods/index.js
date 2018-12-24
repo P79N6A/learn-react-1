@@ -10,13 +10,16 @@ import get from 'lodash/get';
 import {Tabs, Icon} from 'antd';
 import ModalComponent from '../modal';
 import DetailIcon from '../detailIcon';
+import icon_arrow_right from '../../style/img/icon_right.png';
 import './index.less';
 
 const TabPane = Tabs.TabPane;
 
-const enlargeWindow = (id, e) => {
+const enlargeWindow = (type, id, category, e) => {
     e.stopPropagation();
+    localStorage.setItem('tabType', type);
     localStorage.setItem('id', id);
+    localStorage.setItem('category', category);
     // window.jsObj.showDetailWindow('drugDetail');
     browserHistory.push('drugDetail');
 };
@@ -29,76 +32,50 @@ const getDrugComponent = (title, treatment, id, cthis) => {
         return '';
     }
 
-        // <div>
-        //     <span className="drug-title">{title}:</span>
-        //     {desc ? <Icon className="icon-search" type="question-circle" theme="outlined"
-        //         onClick={cthis.showModal.bind(this, title, desc)} /> : ''}
-        // </div>,
+    return [
+            drugLists.map((categoryList, index) => {
+                const {kgid, category, drugList} = categoryList;
+                const MAXLEN = 2;
 
-    return  drugLists.map((categoryList, index) => {
-        const {kgid, category, drugList} = categoryList;
-        const MAXLEN = 2;
+                return <div className="category-bar" key={index}>
+                            <div className="category-line"></div>
+                                <div className="drug-category">{category}</div>
+                                {
+                                    drugList && drugList.map((list, index) => {
+                                        const {name, method, kgid} = list;
 
-        return <div className="category-bar" key={index}>
-        <div className="category-line"></div>
-            <div className="drug-category">{category}</div>
-            {
-                drugList && drugList.map((list, index) => {
-                    const {name, method, kgid} = list;
-
-                    return <div className="recommend-bar" key={index}>
-                        <div className="treat-wrap">
-                            <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
-                            {
-                                kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
-                            }
-                        </div>
-                        <div className="usage-text">
-                            <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
-                        </div>
+                                        return <div className="recommend-bar" key={index}>
+                                            <div className="treat-wrap">
+                                                <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
+                                                {
+                                                    kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
+                                                }
+                                            </div>
+                                            <div className="usage-text">
+                                                <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
+                                            </div>
+                                        </div>;
+                                    })
+                                }
+                                {
+                                    drugList
+                                        && drugList.length > MAXLEN
+                                        // && <Link to={`/drugDeail/${id}`} className="check-more">查看更多</Link>
+                                        && <span className="check-more" onClick={(e) => enlargeWindow('drug', id, category, e)}>查看更多</span>
+                                }
                     </div>;
-                })
-            }
-            {
-                drugList
-                    && drugList.length > MAXLEN
-                    // && <Link to={`/drugDeail/${id}`} className="check-more">查看更多</Link>
-                    && <span className="check-more" onClick={(e) => enlargeWindow(id, e)}>查看更多</span>
-            }
-        </div>
-    })
-
-
-        // drugLists.map((list, index) => {
-        //     const {name, method, kgid} = list;
-
-        //     return <div className="recommend-bar" key={index}>
-        //         <div className="treat-wrap">
-        //             <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
-        //             {
-        //                 kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
-        //             }
-        //         </div>
-        //         <div className="usage-text">
-        //             <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
-        //         </div>
-        //     </div>;
-        // }),
-        // <div className="check-more">查看全部(13)</div>
-
+            }),
+            <div className="check-all" onClick={(e) => enlargeWindow('drug', id, '', e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
+        ];
 };
-const getSurgerComponent = (title, treatment, cthis) => {
+
+const getSurgerComponent = (title, treatment, id, cthis) => {
     const desc = get(treatment, 'surgeryRecommends.desc', '');
     const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
     if (!surgeryLists.length) {
         return '';
     }
     return [
-        // <div>
-        //     <span className="surgery-title">{title}</span>
-        //     {desc ? <Icon className="icon-search" type="question-circle" theme="outlined"
-        //         onClick={cthis.showModal.bind(this, title, desc)} /> : ''}
-        // </div>,
         surgeryLists.map((list, index) => {
             const {approach, attention, indication, name, procedure, kgid} = list;
             return <div className="recommend-bar" key={index}>
@@ -131,7 +108,9 @@ const getSurgerComponent = (title, treatment, cthis) => {
                     }
                 </div>
             </div>;
-        })];
+        }),
+        <div className="check-all" onClick={(e) => enlargeWindow('surger', id, '', e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
+    ];
 };
 const getTabs = level => {
     let tabContent = '';
@@ -151,6 +130,7 @@ const getTabs = level => {
     return tabContent;
 };
 function callback(key) {
+    localStorage.setItem('level', key);
     console.log(key);
 }
 const getTreatMehods = (treatments, index, dthis) => {
@@ -193,6 +173,7 @@ class TreatMehods extends Component {
             levelSum += treatment.level
         ));
         let id = index;
+        console.log('id', id);
 
         if (levelSum === 0) {
             return <div className="common-treatments">
@@ -216,7 +197,7 @@ class TreatMehods extends Component {
                                 }
                                 {
                                     surgeryLists.length
-                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
                                         : ''
                                 }
                             </Tabs>;

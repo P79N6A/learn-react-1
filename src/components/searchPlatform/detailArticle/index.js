@@ -61,7 +61,8 @@ const changeLineWidth = result => {
         content.length && content.map((cont, index) => {
             let newIndex = index + 2;
             let currWidth = $(`.detail-box .detail-content:nth-child(${newIndex}) .detail-title2`).width();
-            let lineWidth = parWidth - currWidth - 10;
+            let lineWidth = parWidth - currWidth - 11;
+            console.log('lineWidth', lineWidth);
             $(`.line-${index}`).css('width', lineWidth);
         });
     });
@@ -69,21 +70,17 @@ const changeLineWidth = result => {
 
 class DetailArticle extends Component {
     componentDidMount() {
-        const result = get(this.props, 'detail.result', null);
 
-        // 初始化线的宽度
-        changeLineWidth(result);
-
-        // 监听窗口大小改变事件
-        $(document).ready(function () {
-            $(window).resize(function () {
-                changeLineWidth(result);
-            });
-        });
     }
 
     render() {
         const result = get(this.props, 'detail.result', null);
+
+        setTimeout(() => {
+            // 初始化线的宽度
+            changeLineWidth(result);
+        });
+
         return (
             <div className="detail-box">
                 {

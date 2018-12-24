@@ -28,6 +28,30 @@
         cursor: pointer;
     }
 
+    .check-all {
+        background: #FFFFFF;
+        border: 1px solid #EEEEEE;
+        border-radius: 2px;
+        height: 42px;
+        line-height: 42px;
+        text-align: center;
+        font-size: 14px;
+        color: #666666;
+        cursor: pointer;
+
+        img {
+            display: inline-block;
+            margin-left: 6px;
+            width: 5px;
+            height: 9px;
+        }
+    }
+
+    .check-all:hover {
+        // background: red;
+        color: #333333;
+    }
+
     .usage-text {
         white-space:nowrap;
         text-overflow:ellipsis;
@@ -62,12 +86,10 @@
     }
 }
 
-// .category-bar:nth-child(1) .category-line {
-//     display: none;
-// }
-
-.category-bar:nth-child(1) {
-    background: red;
+.category-bar:nth-child(2) .category-line {
+    display: none;
 }
 
-
+.category-bar:nth-child(2) .drug-category {
+    margin-top: 8px;
+}

@@ -510,7 +510,7 @@ const mapStateToProps = state => {
     const {advice = [], alert = {}, source = {}} = assistData;
     const loadStatus = get(state, 'emr.loadStatus', '');
     const pathName = get(state, 'searchDisease.name.pathName', '');
-    console.log(loadStatus);
+    // console.log(loadStatus);
     return {
         advice,
         alert,

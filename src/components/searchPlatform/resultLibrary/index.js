@@ -27,7 +27,6 @@ const gotoDetail = (dthis, id, title, type) => {
     localStorage.setItem('id', id);
     localStorage.setItem('type', type);
     const pathName = localStorage.getItem('pathName');
-    console.log(pathName);
 
     // 病例库 不存query,保持原疾病库query
     pathName === 'emr' ? '' : localStorage.setItem('query', title);

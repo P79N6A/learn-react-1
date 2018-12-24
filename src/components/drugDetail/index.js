@@ -14,6 +14,20 @@ import './index.less';
 
 const TabPane = Tabs.TabPane;
 
+const changeLineWidth = result => {
+    if (!result || !result.length || typeof (result) === 'string') {
+        return '';
+    }
+
+    let parWidth = $('.category-bar').width();
+    return result.map((cont, index) => {
+            let newIndex = index + 2;
+            let currWidth = $(`.category-bar:nth-child(${newIndex}) .drug-category`).width();
+            let lineWidth = parWidth - currWidth - 11;
+            $(`.line-${index}`).css('width', lineWidth);
+        });
+};
+
 const getDrugComponent = (title, treatment, cthis) => {
     const desc = get(treatment, 'drugRecommends.desc', '');
     const drugLists = get(treatment, 'drugRecommends.list', []);
@@ -21,16 +35,23 @@ const getDrugComponent = (title, treatment, cthis) => {
         return '';
     }
 
+    setTimeout(() => {
+        changeLineWidth(drugLists);
+    }, 0);
+
     return  drugLists.map((categoryList, index) => {
         const {kgid, category, drugList} = categoryList;
         const MAXLEN = 2;
         const listId = index;
-        return <div className="category-bar" key={index}>
+        const currname = `detail-line line-${index}`;
+
+        return <div className="category-bar" key={index} id={category}>
             <div className="drug-category">{category}</div>
+            <span className={currname}></span>
+
             {
                 drugList && drugList.map((list, index) => {
                     const {name, method, kgid} = list;
-
                     return <div className="recommend-bar" key={index}>
                         <div className="treat-wrap">
                             <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
@@ -44,11 +65,6 @@ const getDrugComponent = (title, treatment, cthis) => {
                     </div>;
                 })
             }
-            {
-                drugList
-                    && drugList.length > MAXLEN
-                    && <Link to={`/drugDeail/${listId}`} className="check-more">查看更多</Link>
-            }
         </div>
     })
 };
@@ -56,6 +72,7 @@ const getDrugComponent = (title, treatment, cthis) => {
 const getSurgerComponent = (title, treatment, cthis) => {
     const desc = get(treatment, 'surgeryRecommends.desc', '');
     const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
+
     if (!surgeryLists.length) {
         return '';
     }
@@ -120,13 +137,19 @@ const getTreatMehods = (treatments, dthis) => {
         return '';
     }
     return <div className="recommend-bar treat-recommend">
-        {/* <div>
-            <span className="treat-name">治疗方案推荐：</span>
-        </div> */}
         {
             dthis.diffLevelTreatments(treatments)
         }
     </div>;
+};
+
+const scrollToAnchor = (anchorName) => {
+    if (anchorName) {
+        let anchorElement = document.getElementById(anchorName);
+        if (anchorElement) {
+            anchorElement.scrollIntoView();
+        }
+    }
 };
 
 class DrugDetail extends Component {
@@ -154,6 +177,8 @@ class DrugDetail extends Component {
         treatments.map((treatment, index) => (
             levelSum += treatment.level
         ));
+        const level = localStorage.getItem('level');
+
         if (levelSum === 0) {
             return <div className="common-treatments">
                 {
@@ -163,16 +188,17 @@ class DrugDetail extends Component {
                         const drugLists = get(treatment, 'drugRecommends.list', []);
                         // 用药方案
                         const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
+                        const type = localStorage.getItem('tabType');
 
-                        return  <Tabs defaultActiveKey="1" tabPosition="left">
+                        return  <Tabs defaultActiveKey={type}>
                                 {
                                     drugLists.length
-                                        ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                        ? <TabPane tab="用药方案" key="drug">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
                                         : ''
                                 }
                                 {
                                     surgeryLists.length
-                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                        ? <TabPane tab="手术方案" key="surger">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
                                         : ''
                                 }
                             </Tabs>;
@@ -180,8 +206,9 @@ class DrugDetail extends Component {
                 }
             </div>;
         }
+
         return <Tabs
-            defaultActiveKey="1"
+            defaultActiveKey={level}
             onChange={callback}
             type="card"
             className="treat-tab">
@@ -192,18 +219,18 @@ class DrugDetail extends Component {
                     const drugLists = get(treatment, 'drugRecommends.list', []);
                     // 用药方案
                     const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
+                    const type = localStorage.getItem('tabType');
 
                     return <TabPane tab={getTabs(treatment.level)} key={index + 1} level={treatment.level}>
-
-                        <Tabs defaultActiveKey="1" tabPosition="left">
+                        <Tabs defaultActiveKey={type} className="child-tabs">
                             {
                                 drugLists.length
-                                    ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                    ? <TabPane tab="用药方案" key="drug">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
                                     : ''
                             }
                             {
                                 surgeryLists.length
-                                    ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                    ? <TabPane tab="手术方案" key="surger">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
                                     : ''
                             }
                         </Tabs>
@@ -212,15 +239,20 @@ class DrugDetail extends Component {
             }
         </Tabs>;
     }
+
     render() {
-
         const {advice, alert, loadStatus} = this.props;
-        // 从url中获取展示那个advice下的详情
-        // const index = this.props.params.id;
         const index = localStorage.getItem('id');
-        console.log('index', index);
-
+        const category = localStorage.getItem('category');
         const treatments = get(advice[index], 'treatments', []);
+
+        console.log('index', index);
+        console.log('advice', advice);
+        console.log('treatments', treatments);
+
+        setTimeout(() => {
+            category === '' ? window.scrollTo(0, 0) : scrollToAnchor(category);
+        }, 0);
 
         return (
             <div className="drug-detail">

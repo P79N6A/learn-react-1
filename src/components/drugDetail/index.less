@@ -1,4 +1,28 @@
 .drug-detail {
+    .category-bar {
+        margin-bottom: 40px;
+    }
+
+    .drug-category {
+        display: inline-block;
+        line-height: 20px;
+        font-size: 20px;
+        color: #333333;
+
+    }
+
+    .drug-category:before {
+        display: inline-block;
+        content: '';
+        width: 5px;
+        height: 20px;
+        line-height: 20px;
+        background: #4175FA;
+        margin-right: 10px;
+        vertical-align: top;
+    }
+
+
     .recommend-bar {
         padding: 50px;
     }
@@ -7,15 +31,64 @@
         border-bottom: none;
     }
 
-    .ant-tabs-tab {
-        width: 126px;
-        margin-right: 0!important;
-        border-radius: 0!important;
-        border-bottom: 1px solid #e8e8e8!important;
+    .ant-tabs-nav-scroll {
+        height: 28px;
+        line-height: 28px;
+        text-align: center;
     }
 
-    .ant-tabs-tab-active {
+    .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+        width: 113px;
+        margin-right: 0!important;
+        border-radius: 0!important;
+        text-align: center;
+        height: 28px;
+        line-height: 28px!important;
+        background: #F5F5F5;
+        border-bottom: 1px solid #DDDDDD;
+        border-radius: 2px;
+    }
+
+    .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
         padding-bottom: 0!important;
         border-bottom: 1px solid #e8e8e8!important;
+        background: #F7F9FF!important;
+        border: 1px solid #396FFF!important;
+        z-index: 1000;
     }
+
+    .detail-line {
+        display: inline-block;
+        content: '';
+        width: 90%;
+        height: 1px;
+        margin-left: 10px;
+        vertical-align: middle;
+        background: #EEEEEE;
+    }
+
+    .child-tabs {
+        .ant-tabs-nav-scroll {
+            text-align: left;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .ant-tabs-ink-bar {
+            width: 56px!important;
+        }
+
+        .ant-tabs-nav-animated {
+            // line-height: 0;
+        }
+
+        .ant-tabs-tab {
+            padding: 0!important;
+        }
+    }
+}
+
+.drug-detail .ant-tabs-nav-wrap:first-child .ant-tabs-tab:nth-child(2) {
+    border-left: none!important;
+    border-right: none!important;
 }

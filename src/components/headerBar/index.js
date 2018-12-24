@@ -29,7 +29,7 @@ const getRate = rate => {
         </span>;
 
     } else if (rate >= 85 && rate < 95) {
-        console.log('4');
+        // console.log('4');
         return <span>
             <span className="rate-tip rate-box"></span>
             <span className="rate-tip rate-box"></span>
@@ -82,12 +82,10 @@ class HeaderBar extends Component {
         this.sendSearchRequest(source, name);
         browserHistory.push('search');
     }
-
     render() {
         const {name, kgid, rate} = this.props;
         const source = JSON.parse(localStorage.getItem('changeFieldsValue'));
         const switchRate = Number(rate) * 100;
-        console.log('source', source);
 
         return (
             <div className="clinic-header-bar">
