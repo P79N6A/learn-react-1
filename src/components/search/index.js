@@ -18,6 +18,7 @@ class SearchBar extends Component {
         this.init();
     }
     init = () => {
+        localStorage.setItem('searchQuery', '');
     }
 
     handleSearch = query => {
@@ -29,7 +30,8 @@ class SearchBar extends Component {
         // window.jsObj.showDetailWindow('/search');
         localStorage.setItem('pathName', 'disease');
         // 保存query
-        localStorage.setItem('query', query);
+        localStorage.setItem('searchQuery', query);
+
         browserHistory.push('search');
         const pathName = 'disease';
         const path = PATH_URL + pathName;

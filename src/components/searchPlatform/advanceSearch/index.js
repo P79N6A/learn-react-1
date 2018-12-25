@@ -288,11 +288,11 @@ class AdvanceSearch extends Component {
                                 </Col>
                             </FormItem>
                         </Col>
-                        <Col span={3}>
+                        {/* <Col span={3}>
                             {getFieldDecorator('is-first-diagnose', config)(
                                 <Checkbox onChange={onChange} className="check-box">仅显示首诊</Checkbox>
                             )}
-                        </Col>
+                        </Col> */}
                         <Col span={4}>
                             <Button htmlType="submit">确定</Button>
                         </Col>

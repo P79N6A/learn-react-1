@@ -154,9 +154,10 @@ const scrollToAnchor = (anchorName) => {
 
 class DrugDetail extends Component {
     state = {
-        visible: false,
-        name: '',
-        desc: ''
+        id: this.props.params.id,
+        level: this.props.params.level,
+        type: this.props.params.type,
+        category: this.props.params.category
     }
     showModal = (name, desc) => {
         this.setState({
@@ -177,7 +178,6 @@ class DrugDetail extends Component {
         treatments.map((treatment, index) => (
             levelSum += treatment.level
         ));
-        const level = localStorage.getItem('level');
 
         if (levelSum === 0) {
             return <div className="common-treatments">
@@ -188,9 +188,7 @@ class DrugDetail extends Component {
                         const drugLists = get(treatment, 'drugRecommends.list', []);
                         // 用药方案
                         const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
-                        const type = localStorage.getItem('tabType');
-
-                        return  <Tabs defaultActiveKey={type}>
+                        return <Tabs defaultActiveKey={cthis.state.type}>
                                 {
                                     drugLists.length
                                         ? <TabPane tab="用药方案" key="drug">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
@@ -208,7 +206,7 @@ class DrugDetail extends Component {
         }
 
         return <Tabs
-            defaultActiveKey={level}
+            defaultActiveKey={this.state.level}
             onChange={callback}
             type="card"
             className="treat-tab">
@@ -219,10 +217,9 @@ class DrugDetail extends Component {
                     const drugLists = get(treatment, 'drugRecommends.list', []);
                     // 用药方案
                     const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
-                    const type = localStorage.getItem('tabType');
 
                     return <TabPane tab={getTabs(treatment.level)} key={index + 1} level={treatment.level}>
-                        <Tabs defaultActiveKey={type} className="child-tabs">
+                        <Tabs defaultActiveKey={cthis.state.type} className="child-tabs">
                             {
                                 drugLists.length
                                     ? <TabPane tab="用药方案" key="drug">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
@@ -242,13 +239,9 @@ class DrugDetail extends Component {
 
     render() {
         const {advice, alert, loadStatus} = this.props;
-        const index = localStorage.getItem('id');
-        const category = localStorage.getItem('category');
-        const treatments = get(advice[index], 'treatments', []);
-
-        console.log('index', index);
-        console.log('advice', advice);
-        console.log('treatments', treatments);
+        const id = this.props.params.id;
+        const category = this.props.params.category;
+        const treatments = get(advice[id], 'treatments', []);
 
         setTimeout(() => {
             category === '' ? window.scrollTo(0, 0) : scrollToAnchor(category);

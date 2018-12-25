@@ -1,6 +1,6 @@
 .drug-detail {
     .category-bar {
-        margin-bottom: 40px;
+        margin-bottom: 20px;
     }
 
     .drug-category {
@@ -8,7 +8,6 @@
         line-height: 20px;
         font-size: 20px;
         color: #333333;
-
     }
 
     .drug-category:before {
@@ -22,12 +21,23 @@
         vertical-align: top;
     }
 
+    .ant-tabs-nav {
+        height: 46px;
+    }
+
+    .child-tabs .ant-tabs-nav-scroll {
+        height: 46px!important;
+    }
 
     .recommend-bar {
         padding: 50px;
     }
 
-    .ant-tabs-bar {
+    // .ant-tabs-bar {
+    //     border-bottom: none;
+    // }
+
+    .ant-tabs-card-bar {
         border-bottom: none;
     }
 
@@ -78,13 +88,13 @@
             width: 56px!important;
         }
 
-        .ant-tabs-nav-animated {
-            // line-height: 0;
-        }
-
         .ant-tabs-tab {
             padding: 0!important;
         }
+    }
+
+    .category-bar:nth-child(2) {
+        margin-top: 10px;
     }
 }
 

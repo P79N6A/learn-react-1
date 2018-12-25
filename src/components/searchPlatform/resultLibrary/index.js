@@ -123,9 +123,13 @@ const getEmrResult = (result, dthis, totalNum) => {
             const suit = res['主诉'] || '';
             const type = res['就诊类型'] || '';
             const nowHistory = res['现病史'] || '';
-            const title = `${time}_${sex}_${age}_${department}`;
+
+            let title = `${time}_${sex}_${age}_${department}`;
+            title = title.startsWith('_') ? title.slice(1) : title;
+            title = title.endsWith('_') ? title.slice(0, -1) : title;
+
             return <div key={index} className="list-box">
-                <div className="list-tag">{type}</div>
+                {type === '' ? '' : <div className="list-tag">{type}</div>}
                 <div className="list-title">
                     <a href="javascript:void(0)" onClick={gotoDetail.bind(dthis, dthis, id, title, type)}>
                         {title}

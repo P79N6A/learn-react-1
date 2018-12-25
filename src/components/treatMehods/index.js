@@ -15,13 +15,10 @@ import './index.less';
 
 const TabPane = Tabs.TabPane;
 
-const enlargeWindow = (type, id, category, e) => {
+const enlargeWindow = (type, id, category, cthis, e) => {
     e.stopPropagation();
-    localStorage.setItem('tabType', type);
-    localStorage.setItem('id', id);
-    localStorage.setItem('category', category);
-    // window.jsObj.showDetailWindow('drugDetail');
-    browserHistory.push('drugDetail');
+    const level = cthis.state.level;
+    browserHistory.push(`/drugDetail/${id}/${level}/${type}/${category}`);
 };
 
 const getDrugComponent = (title, treatment, id, cthis) => {
@@ -61,11 +58,11 @@ const getDrugComponent = (title, treatment, id, cthis) => {
                                     drugList
                                         && drugList.length > MAXLEN
                                         // && <Link to={`/drugDeail/${id}`} className="check-more">查看更多</Link>
-                                        && <span className="check-more" onClick={(e) => enlargeWindow('drug', id, category, e)}>查看更多</span>
+                                        && <span className="check-more" onClick={(e) => enlargeWindow('drug', id, category, cthis, e)}>查看更多</span>
                                 }
                     </div>;
             }),
-            <div className="check-all" onClick={(e) => enlargeWindow('drug', id, '', e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
+            <div className="check-all" onClick={(e) => enlargeWindow('drug', id, '', cthis, e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
         ];
 };
 
@@ -109,7 +106,7 @@ const getSurgerComponent = (title, treatment, id, cthis) => {
                 </div>
             </div>;
         }),
-        <div className="check-all" onClick={(e) => enlargeWindow('surger', id, '', e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
+        <div className="check-all" onClick={(e) => enlargeWindow('surger', id, '', cthis, e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
     ];
 };
 const getTabs = level => {
@@ -130,8 +127,10 @@ const getTabs = level => {
     return tabContent;
 };
 function callback(key) {
-    localStorage.setItem('level', key);
-    console.log(key);
+    // localStorage.setItem('level', key);
+    this.setState({
+        level: key
+    });
 }
 const getTreatMehods = (treatments, index, dthis) => {
 
@@ -151,7 +150,9 @@ class TreatMehods extends Component {
     state = {
         visible: false,
         name: '',
-        desc: ''
+        desc: '',
+        level: 1,
+        tabType: ''
     }
     showModal = (name, desc) => {
         this.setState({
@@ -173,7 +174,6 @@ class TreatMehods extends Component {
             levelSum += treatment.level
         ));
         let id = index;
-        console.log('id', id);
 
         if (levelSum === 0) {
             return <div className="common-treatments">
@@ -185,10 +185,6 @@ class TreatMehods extends Component {
                         const drugLists = get(treatment, 'drugRecommends.list', []);
                         // 用药方案
                         const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
-                        // return [
-                        //     getDrugComponent('用药方案', treatment, cthis),
-                        //     getSurgerComponent('手术方案', treatment, cthis)
-                        // ];
                         return  <Tabs defaultActiveKey="1">
                                 {
                                     drugLists.length
@@ -220,7 +216,7 @@ class TreatMehods extends Component {
 
                     return <TabPane tab={getTabs(treatment.level)} key={index + 1} level={treatment.level}>
 
-                        <Tabs defaultActiveKey="1">
+                        <Tabs defaultActiveKey="1" className="second-tab">
                             {
                                 drugLists.length
                                     ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>

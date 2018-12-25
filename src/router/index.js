@@ -39,7 +39,7 @@ export default browserHistory => (
         <Route path="/search" getComponents={SearchPlatform}></Route>
         <Route path="/detail" getComponents={SearchPlatformDetail}></Route>
         <Route path="/disclaimer" getComponents={Disclaimer}></Route>
-        <Route path="/drugDetail" getComponents={DrugDetail}></Route>
+        <Route path="/drugDetail/:id/:level/:type/:category" getComponents={DrugDetail}></Route>
     </Router>
 );
 

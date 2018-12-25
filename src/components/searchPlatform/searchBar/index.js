@@ -18,8 +18,15 @@ class SearchBar extends Component {
         query: ''
     }
     componentDidMount() {
-        // const query = localStorage.getItem('title');
-        const query = localStorage.getItem('query');
+        // 如果没有主搜索 就用返回的query
+        let query = localStorage.getItem('searchQuery');
+        console.log('query', query);
+
+        if (!query) {
+            query = localStorage.getItem('backQuery');
+        }
+        console.log('query', query);
+
         this.setState({
             query
         });
@@ -29,18 +36,7 @@ class SearchBar extends Component {
     }
 
     handleSearch = query => {
-        localStorage.setItem('query', query);
-        // localStorage.setItem('searchQuery', query);
-        // if (!query) {
-        //     // throw Error('query 不能为空');
-        //     this.props.saveQuery(query);
-        //     // this.elem.style.display = 'block';
-        //     return;
-        // }
-
-
-        // 从 localStorage里面获取pathName
-        // const pathName = this.props.pathName || 'disease';
+        localStorage.setItem('searchQuery', query);
         const pathName = localStorage.getItem('pathName') || 'disease';
         const path = PATH_URL + pathName;
         this.props.searchDisease({body: {query}, path});
@@ -51,7 +47,6 @@ class SearchBar extends Component {
         this.setState({
             query: e.target.value
         });
-        localStorage.setItem('searchQuery', e.target.value);
     }
     render() {
         return (
@@ -64,7 +59,6 @@ class SearchBar extends Component {
                     onChange={this.handleChange}
                     onSearch={this.handleSearch}
                 />
-                {/* <div className="search-tip" ref={(elem) => this.elem = elem} >请输入查询关键词！</div> */}
             </div>
         );
     }

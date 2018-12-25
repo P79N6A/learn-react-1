@@ -74,7 +74,8 @@ class HeaderBar extends Component {
 
         localStorage.setItem('pathName', 'emr');
         localStorage.setItem('activeKey', 'emr');
-        localStorage.setItem('query', name);
+        localStorage.setItem('backQuery', name);
+
         this.props.switchKey('emr');
         if (!Object.keys(source).length) {
             return;
