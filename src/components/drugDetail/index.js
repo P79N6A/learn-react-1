@@ -39,16 +39,16 @@ const getDrugComponent = (title, treatment, cthis) => {
         changeLineWidth(drugLists);
     }, 0);
 
-    return  drugLists.map((categoryList, index) => {
+    return drugLists.map((categoryList, index) => {
         const {kgid, category, drugList} = categoryList;
-        const MAXLEN = 2;
-        const listId = index;
         const currname = `detail-line line-${index}`;
 
         return <div className="category-bar" key={index} id={category}>
-            <div className="drug-category">{category}</div>
-            <span className={currname}></span>
-
+            {!category
+                ? ''
+                : <div className="drug-category">{category}
+                <span className={currname}></span></div>
+            }
             {
                 drugList && drugList.map((list, index) => {
                     const {name, method, kgid} = list;
@@ -56,7 +56,9 @@ const getDrugComponent = (title, treatment, cthis) => {
                         <div className="treat-wrap">
                             <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
                             {
-                                kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
+                                kgid
+                                ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon>
+                                : ''
                             }
                         </div>
                         <div className="usage-text">
@@ -65,8 +67,8 @@ const getDrugComponent = (title, treatment, cthis) => {
                     </div>;
                 })
             }
-        </div>
-    })
+        </div>;
+    });
 };
 
 const getSurgerComponent = (title, treatment, cthis) => {
@@ -168,7 +170,6 @@ class DrugDetail extends Component {
 
     }
     handleCancel = e => {
-        console.log(e);
         this.setState({
             visible: false
         });

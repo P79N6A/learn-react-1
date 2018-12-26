@@ -126,12 +126,7 @@ const getTabs = level => {
     }
     return tabContent;
 };
-function callback(key) {
-    // localStorage.setItem('level', key);
-    this.setState({
-        level: key
-    });
-}
+
 const getTreatMehods = (treatments, index, dthis) => {
 
     if (!treatments.length) {
@@ -160,14 +155,20 @@ class TreatMehods extends Component {
             name,
             desc
         });
-
     }
+
+    callback = key => {
+        this.setState({
+            level: key
+        });
+    };
+
     handleCancel = e => {
-        console.log(e);
         this.setState({
             visible: false
         });
     }
+
     diffLevelTreatments = (treatments, index) => {
         let levelSum = 0;
         treatments.map((treatment, index) => (
@@ -185,7 +186,7 @@ class TreatMehods extends Component {
                         const drugLists = get(treatment, 'drugRecommends.list', []);
                         // 用药方案
                         const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
-                        return  <Tabs defaultActiveKey="1">
+                        return <Tabs defaultActiveKey="1">
                                 {
                                     drugLists.length
                                         ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
@@ -203,7 +204,7 @@ class TreatMehods extends Component {
         }
         return <Tabs
             defaultActiveKey="1"
-            onChange={callback}
+            onChange={this.callback}
             type="card"
             className="treat-tab">
             {
@@ -219,13 +220,13 @@ class TreatMehods extends Component {
                         <Tabs defaultActiveKey="1" className="second-tab">
                             {
                                 drugLists.length
-                                    ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
-                                    : ''
+                                ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
+                                : ''
                             }
                             {
                                 surgeryLists.length
-                                    ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
-                                    : ''
+                                ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
+                                : ''
                             }
                         </Tabs>
                     </TabPane>;

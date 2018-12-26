@@ -71,7 +71,7 @@ const validateValue = value => {
     const reg = /^\d{0,3}$/;
     const ageFrom = value['age-from'];
     const ageTo = value['age-to'];
-    debugger;
+
     if (!ageFrom || !ageTo) {
         return true;
     }
@@ -154,7 +154,7 @@ class AdvanceSearch extends Component {
         e.preventDefault();
 
         this.props.form.validateFields((err, fieldsValue) => {
-            debugger;
+
             if (!validateValue(fieldsValue)) {
                 return;
             }
@@ -163,14 +163,9 @@ class AdvanceSearch extends Component {
                 // 'date-picker': fieldsValue['date-picker'] && fieldsValue['date-picker'].format('YYYY-MM-DD'),
                 'select-age': `${fieldsValue['age-from']}-${fieldsValue['age-to']}`
             };
-            console.log('Received values of form: ', fieldsValue);
-            console.log('Received values of form: ', values);
-            console.log(this.props.queryName + 'queryname');
 
             const dateRange = getDate(values['date-picker']);
-            // console.log('date', dateRange);
             const ageRanage = values['select-age'].split('-');
-            // console.log('age_ranage', ageRanage);
 
             const advanceObj = {
                 path: PATH_URL + 'emr',
