@@ -26,6 +26,19 @@ const loadError = loadStatus => {
         </div>)
         : '';
 };
+
+const computedMinHeight = cthis => {
+    let clientHeight = document.documentElement.clientHeight;
+    let searchHeight = $('.search-box').height();
+    let remindHeight = $('.remind-wrapper').height();
+    // let disclaimerHeight = $('.disclaimer-content').height();
+    let disclaimerHeight = 68;
+
+    // tip-content
+    let result = clientHeight - searchHeight - remindHeight - disclaimerHeight;
+    cthis.adviceElem.style.minHeight = result + 'px';
+};
+
 class AssistSys extends Component {
     componentWillMount() {
         // const websocketConnect = this.props.websocketConnect;
@@ -56,6 +69,11 @@ class AssistSys extends Component {
         //         'checkDiagnose': '', 'testDiagnose': '', 'drugDiagnose': ''
         //     }
         // });
+
+        // 计算免责声明的位置:
+        setTimeout(() => {
+            computedMinHeight(this);
+        }, 0);
     }
 
     handleNvEnter = event => {
@@ -77,26 +95,28 @@ class AssistSys extends Component {
         return (
             <div ref={elem => this.nv = elem} className="tip-wrapper">
                 <Search {...this.props}></Search>
-                <div className="tip-before"></div>
-                <div className="tip-content">
-                    <div className="header-wrapper">
-                        <div className="cdss-header-word">智能提醒</div>
-                        <div className="cdss-header-tip">
-                            {errorNum > 0 ? <span>{errorNum}项警告 </span> : ''}
-                            {warningNum > 0 ? <span>{warningNum}项风险</span> : ''}
+                <div className="remind-wrapper">
+                    <div className="tip-before"></div>
+                    <div className="tip-item">
+                        <div className="header-wrapper">
+                            <div className="cdss-header-word">智能提醒</div>
+                            <div className="cdss-header-tip">
+                                {errorNum > 0 ? <span>{errorNum}项警告 </span> : ''}
+                                {warningNum > 0 ? <span>{warningNum}项风险</span> : ''}
+                            </div>
                         </div>
+
+                        <div className="header-line"></div>
+                        {
+                            alert.data && Object.keys(alert.data).length
+                                ? <Remind alert={alert} {...this.props}></Remind>
+                                : <div className="no-tip">暂无信息提醒</div>
+                        }
                     </div>
-
-                    <div className="header-line"></div>
-                    {
-                        alert.data && Object.keys(alert.data).length
-                            ? <Remind alert={alert} {...this.props}></Remind>
-                            : <div className="no-tip">暂无信息提醒</div>
-                    }
+                    <div className="tip-after"></div>
                 </div>
-                <div className="tip-after"></div>
 
-                <div className="tip-content">
+                <div className="tip-content" ref={elem => this.adviceElem = elem}>
                     <div className="cdss-header-word">临床建议</div>
                     {
                         advice && advice.length ? <div className="tip-count">{advice.length}项建议</div> : ''

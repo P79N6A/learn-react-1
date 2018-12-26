@@ -14,7 +14,7 @@ export default class App extends Component {
     render() {
         return (
             <div>
-                <EmrTable></EmrTable>
+                {/* <EmrTable></EmrTable> */}
                 <AssistSys></AssistSys>
             </div>
         );

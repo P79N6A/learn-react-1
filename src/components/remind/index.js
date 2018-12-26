@@ -43,6 +43,17 @@ const getIcon = status => {
     return status ? icon_arrow_up : icon_arrow_down;
 };
 
+const computedMinHeight = () => {
+    let clientHeight = document.documentElement.clientHeight;
+    let searchHeight = $('.search-box').height();
+    let remindHeight = $('.remind-wrapper').height();
+    let disclaimerHeight = $('.disclaimer-content').height();
+
+    // tip-content
+    let result = clientHeight - searchHeight - remindHeight - disclaimerHeight;
+    $('.tip-content').css('minHeight', result + 'px');
+};
+
 class Remind extends Component {
     state = {
         tipStatus: false
@@ -70,11 +81,15 @@ class Remind extends Component {
 
             // 更改箭头方向
             getIcon(this.state.tipStatus);
-
             // 省略的文字展开
             $('.content-space').removeClass('no-wrap');
             $('.tip-info').removeClass('no-wrap');
         }
+
+        // 此处异步操作时间要晚于"更多提醒"展开时间 less设置的200ms
+        setTimeout(() => {
+            computedMinHeight();
+        }, 200);
     }
 
     render() {

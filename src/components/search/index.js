@@ -27,16 +27,14 @@ class SearchBar extends Component {
             return;
         }
         // window.jsObj.enlargeWindow();
-        // window.jsObj.showDetailWindow('/search');
         localStorage.setItem('pathName', 'disease');
         // 保存query
         localStorage.setItem('searchQuery', query);
-
-        browserHistory.push('search');
         const pathName = 'disease';
         const path = PATH_URL + pathName;
         this.props.searchDisease({body: {query}, path});
         this.props.saveQuery(query);
+        browserHistory.push('search');
     }
 
     render() {

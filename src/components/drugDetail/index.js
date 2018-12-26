@@ -245,7 +245,7 @@ class DrugDetail extends Component {
         const treatments = get(advice[id], 'treatments', []);
 
         setTimeout(() => {
-            category === '' ? window.scrollTo(0, 0) : scrollToAnchor(category);
+            category === 'all' ? window.scrollTo(0, 0) : scrollToAnchor(category);
         }, 0);
 
         return (

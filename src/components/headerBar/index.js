@@ -68,10 +68,8 @@ class HeaderBar extends Component {
             }
         });
     }
-    setActiveKey = (source, name) => {
-        // window.jsObj.enlargeWindow();
-        // window.jsObj.showDetailWindow('/search');
-
+    setActiveKey = (source, name, e) => {
+        // e.preventDefault();
         localStorage.setItem('pathName', 'emr');
         localStorage.setItem('activeKey', 'emr');
         localStorage.setItem('backQuery', name);

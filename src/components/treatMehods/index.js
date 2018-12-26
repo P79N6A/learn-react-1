@@ -57,12 +57,12 @@ const getDrugComponent = (title, treatment, id, cthis) => {
                                 {
                                     drugList
                                         && drugList.length > MAXLEN
-                                        // && <Link to={`/drugDeail/${id}`} className="check-more">查看更多</Link>
-                                        && <span className="check-more" onClick={(e) => enlargeWindow('drug', id, category, cthis, e)}>查看更多</span>
+                                        && <Link className="check-more" onClick={(e) => enlargeWindow('drug', id, category, cthis, e)}>查看更多</Link>
+                                        // && <span className="check-more" onClick={(e) => enlargeWindow('drug', id, category, cthis, e)}>查看更多</span>
                                 }
                     </div>;
             }),
-            <div className="check-all" onClick={(e) => enlargeWindow('drug', id, '', cthis, e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
+            <div className="check-all" onClick={(e) => enlargeWindow('drug', id, 'all', cthis, e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
         ];
 };
 
@@ -106,7 +106,7 @@ const getSurgerComponent = (title, treatment, id, cthis) => {
                 </div>
             </div>;
         }),
-        <div className="check-all" onClick={(e) => enlargeWindow('surger', id, '', cthis, e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
+        <div className="check-all" onClick={(e) => enlargeWindow('surger', id, 'all', cthis, e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
     ];
 };
 const getTabs = level => {
