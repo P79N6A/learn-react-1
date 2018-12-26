@@ -79,9 +79,9 @@ const getPaginationBar = (result, dthis, totalNum) => {
                     <Option value="50条">50条</Option>
                 </Select>
             </div>
-            <div className="btn-wrap">
+            {/* <div className="btn-wrap">
                 <Button onClick={dthis.handleSubmit}> 确定</Button>
-            </div>
+            </div> */}
 
         </div>
 
@@ -109,10 +109,11 @@ const getEmrResult = (result, dthis, totalNum) => {
         </div>;
     }
 
+    const pathName = localStorage.getItem('pathName');
     return [
         <div className="paginate-left">
             {`共检索到${totalNum}条${dthis.props.queryName ? `"${dthis.props.queryName}"` : ''}
-            ${transName(dthis.props.pathName || 'disease')}`}
+            ${transName(pathName || 'disease')}`}
         </div>,
         result.length && result.map((res, index) => {
             const id = res['id'] || '';
@@ -164,11 +165,12 @@ const getDiseaseResult = (result, dthis, totalNum) => {
             <p>建议换个检索词试试看</p>
         </div>;
     }
+    const pathName =  localStorage.getItem('pathName');
 
     return [
         <div className="paginate-left">
             {`共检索到${totalNum}条${dthis.props.queryName ? `"${dthis.props.queryName}"` : ''}
-            ${transName(dthis.props.pathName || 'disease')}`}
+            ${transName(pathName || 'disease')}`}
         </div>,
         result.length && result.map((res, index) => {
             const {title, summary, id} = res;
@@ -211,7 +213,8 @@ class ResultLibrary extends Component {
     }
 
     sendSearchRequest = (page, pageSize) => {
-        const pathName = this.props.pathName || 'disease';
+        // const pathName = this.props.pathName || 'disease';
+        const pathName = localStorage.getItem('pathName') || 'disease';
         console.log(pathName + '-------pathName');
         const queryName = this.props.queryName;
         const path = PATH_URL + pathName;
@@ -231,6 +234,12 @@ class ResultLibrary extends Component {
             current: page,
             page
         });
+
+        setTimeout(() => {
+            console.log('current', this.state.current);
+            this.handleSubmit();
+        }, 0);
+
     }
 
     handleEachChange = value => {
@@ -238,6 +247,10 @@ class ResultLibrary extends Component {
         this.setState({
             pageSize: transValueToCurrent(value.substr(0, 2))
         });
+
+        setTimeout(() => {
+            this.handleSubmit();
+        }, 0);
     }
     handleInputChange = e => {
         console.log(e.target.value);

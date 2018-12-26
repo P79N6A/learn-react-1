@@ -249,7 +249,7 @@ class DrugDetail extends Component {
 
         return (
             <div className="drug-detail">
-                 <div className="auxiliary-box">
+                 <div>
                     {
                         getTreatMehods(treatments, this)
                     }
