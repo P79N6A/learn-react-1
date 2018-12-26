@@ -26,7 +26,7 @@ const loadError = loadStatus => {
         </div>)
         : '';
 };
-
+// 计算"免责声明"位置
 const computedMinHeight = cthis => {
     let clientHeight = document.documentElement.clientHeight;
     let searchHeight = $('.search-box').height();
@@ -38,6 +38,7 @@ const computedMinHeight = cthis => {
     let result = clientHeight - searchHeight - remindHeight - disclaimerHeight;
     cthis.adviceElem.style.minHeight = result + 'px';
 };
+
 
 class AssistSys extends Component {
     componentWillMount() {

@@ -210,7 +210,7 @@ class AdvanceSearch extends Component {
         return (
             <div className="advance-search-box">
                 <Form layout="inline" onSubmit={this.handleSubmit}>
-                    <Row type="flex" justify="start">
+                    <Row type="flex" justify="space-between">
                         <Col span={4}>
                             <FormItem
                                 label="就诊时间"
