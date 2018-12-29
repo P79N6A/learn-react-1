@@ -20,7 +20,7 @@ import 'style/antd/antd.css';
 import './index.less';
 
 // const PATH_URL = process.env.REACT_APP_PATH_URL;
-const PATH_URL = "http://yq01-kg-log0.yq01:8700/v1/search/query/";
+const PATH_URL = 'http://yq01-kg-log0.yq01:8700/v1/search/query/';
 const FormItem = Form.Item;
 const Option = Select.Option;
 let schema = require('async-validator');
@@ -211,7 +211,7 @@ class AdvanceSearch extends Component {
             <div className="advance-search-box">
                 <Form layout="inline" onSubmit={this.handleSubmit}>
                     <Row type="flex" justify="space-between">
-                        <Col span={4}>
+                        <Col span={4} className="form-item">
                             <FormItem
                                 label="就诊时间"
                                 {...formItemLayout}
@@ -226,7 +226,7 @@ class AdvanceSearch extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col span={4}>
+                        <Col span={4} className="form-item">
                             <FormItem
                                 label="所在科室"
                                 {...formItemLayout1}
@@ -241,7 +241,7 @@ class AdvanceSearch extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col span={3}>
+                        <Col span={3} className="form-item">
                             <FormItem
                                 label="性别"
                                 hasFeedback
@@ -258,7 +258,7 @@ class AdvanceSearch extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col span={3}>
+                        <Col span={3} className="form-item">
                             <FormItem
                                 label="年龄"
                                 {...formItemLayout2}

@@ -52,9 +52,13 @@ const getDrugComponent = (title, treatment, cthis) => {
             {
                 drugList && drugList.map((list, index) => {
                     const {name, method, kgid} = list;
+
+                    let methodArr = method.replace(/\s/g, 'fdfdfdfdfdfdfdfd');
+                    methodArr = method.replace(/\n/g, '<br/>');
+
                     return <div className="recommend-bar" key={index}>
                         <div className="treat-wrap">
-                            <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
+                            <span className="auxi-name treat" data-clipboard-text={name}>{name}</span>
                             {
                                 kgid
                                 ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon>
@@ -62,7 +66,8 @@ const getDrugComponent = (title, treatment, cthis) => {
                             }
                         </div>
                         <div className="usage-text">
-                            <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
+                            <span className="auxi-name treat" data-clipboard-text={name + method}
+                            dangerouslySetInnerHTML = {{__html: methodArr}}></span>
                         </div>
                     </div>;
                 })
@@ -82,7 +87,7 @@ const getSurgerComponent = (title, treatment, cthis) => {
         surgeryLists.map((list, index) => {
             const {approach, attention, indication, name, procedure, kgid} = list;
             return <div className="recommend-bar" key={index}>
-                <div className="treat-wrap">
+                <div className="treat-wrap surger">
                     <span className="auxi-name treat" data-clipboard-text={name}>{name}</span>
                     {
                         kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
@@ -145,7 +150,7 @@ const getTreatMehods = (treatments, dthis) => {
     </div>;
 };
 
-const scrollToAnchor = (anchorName) => {
+const scrollToAnchor = anchorName => {
     if (anchorName) {
         let anchorElement = document.getElementById(anchorName);
         if (anchorElement) {
@@ -189,15 +194,17 @@ class DrugDetail extends Component {
                         const drugLists = get(treatment, 'drugRecommends.list', []);
                         // 用药方案
                         const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
-                        return <Tabs defaultActiveKey={cthis.state.type}>
+                        return <Tabs defaultActiveKey={cthis.state.type} className="child-tabs">
                                 {
                                     drugLists.length
-                                        ? <TabPane tab="用药方案" key="drug">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                        ? <TabPane tab="用药方案" key="drug">
+                                            {getDrugComponent('用药方案', treatment, cthis)}</TabPane>
                                         : ''
                                 }
                                 {
                                     surgeryLists.length
-                                        ? <TabPane tab="手术方案" key="surger">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                        ? <TabPane tab="手术方案" key="surger">
+                                            {getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
                                         : ''
                                 }
                             </Tabs>;
@@ -219,16 +226,18 @@ class DrugDetail extends Component {
                     // 用药方案
                     const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
 
-                    return <TabPane tab={getTabs(treatment.level)} key={index + 1} level={treatment.level}>
+                    return <TabPane tab={getTabs(treatment.level + 1)} key={index + 1} level={treatment.level}>
                         <Tabs defaultActiveKey={cthis.state.type} className="child-tabs">
                             {
                                 drugLists.length
-                                    ? <TabPane tab="用药方案" key="drug">{getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                    ? <TabPane tab="用药方案" key="drug">
+                                        {getDrugComponent('用药方案', treatment, cthis)}</TabPane>
                                     : ''
                             }
                             {
                                 surgeryLists.length
-                                    ? <TabPane tab="手术方案" key="surger">{getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                    ? <TabPane tab="手术方案" key="surger">
+                                        {getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
                                     : ''
                             }
                         </Tabs>
@@ -243,6 +252,7 @@ class DrugDetail extends Component {
         const id = this.props.params.id;
         const category = this.props.params.category;
         const treatments = get(advice[id], 'treatments', []);
+        console.log('treatments', treatments);
 
         setTimeout(() => {
             category === 'all' ? window.scrollTo(0, 0) : scrollToAnchor(category);

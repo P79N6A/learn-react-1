@@ -14,55 +14,70 @@ import icon_arrow_right from '../../style/img/icon_right.png';
 import './index.less';
 
 const TabPane = Tabs.TabPane;
+const categoryLimit = 5;
+const drugLimit = 3;
 
 const enlargeWindow = (type, id, category, cthis, e) => {
     e.stopPropagation();
+    e.preventDefault();
     const level = cthis.state.level;
-    browserHistory.push(`/drugDetail/${id}/${level}/${type}/${category}`);
+    browserHistory.push(`drugDetail/${id}/${level}/${type}/${category}`);
 };
 
 const getDrugComponent = (title, treatment, id, cthis) => {
     const desc = get(treatment, 'drugRecommends.desc', '');
-    const drugLists = get(treatment, 'drugRecommends.list', []);
+    const categoryLists = get(treatment, 'drugRecommends.list', []);
+    const categoryLen = categoryLists.length;
 
-    if (!drugLists.length) {
+    if (!categoryLen) {
         return '';
     }
+    const categoryShowList = categoryLen > categoryLimit ? categoryLists.slice(0, categoryLimit) : categoryLists;
 
     return [
-            drugLists.map((categoryList, index) => {
-                const {kgid, category, drugList} = categoryList;
-                const MAXLEN = 2;
-
+            categoryShowList.map((categoryItem, index) => {
+                const {kgid, category, drugList} = categoryItem;
+                if (!drugList || !drugList.length) {
+                    return '';
+                }
+                const drugLen = drugList.length;
+                const drugShow = drugLen > drugLimit ? drugList.slice(0, drugLimit) : drugList;
                 return <div className="category-bar" key={index}>
                             <div className="category-line"></div>
                                 <div className="drug-category">{category}</div>
                                 {
-                                    drugList && drugList.map((list, index) => {
+
+                                    drugShow && drugShow.map((list, index) => {
                                         const {name, method, kgid} = list;
 
                                         return <div className="recommend-bar" key={index}>
                                             <div className="treat-wrap">
-                                                <span className="auxi-name treat" data-clipboard-text={name + method}>{name}</span>
+                                                <span className="auxi-name treat"
+                                                    data-clipboard-text={name + method}>{name}</span>
                                                 {
-                                                    kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon> : ''
+                                                    kgid ? <DetailIcon kgid={kgid} {...cthis.props}
+                                                    title={name} from="drug"></DetailIcon> : ''
                                                 }
                                             </div>
                                             <div className="usage-text">
-                                                <span className="auxi-name treat" data-clipboard-text={name + method}>{method}</span>
+                                                <span className="auxi-name treat"
+                                                data-clipboard-text={name + method}>{method}</span>
                                             </div>
                                         </div>;
                                     })
                                 }
                                 {
                                     drugList
-                                        && drugList.length > MAXLEN
-                                        && <Link className="check-more" onClick={(e) => enlargeWindow('drug', id, category, cthis, e)}>查看更多</Link>
-                                        // && <span className="check-more" onClick={(e) => enlargeWindow('drug', id, category, cthis, e)}>查看更多</span>
+                                        && drugList.length > drugLimit
+                                        && <Link className="check-more"
+                                        onClick={e => enlargeWindow('drug', id, category, cthis, e)}>查看更多</Link>
                                 }
                     </div>;
             }),
-            <div className="check-all" onClick={(e) => enlargeWindow('drug', id, 'all', cthis, e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
+            <div className="check-all"
+                onClick={e => enlargeWindow('drug', id, 'all', cthis, e)}>查看全部 &nbsp;(13)
+                <img src={icon_arrow_right}/>
+            </div>
         ];
 };
 
@@ -106,7 +121,10 @@ const getSurgerComponent = (title, treatment, id, cthis) => {
                 </div>
             </div>;
         }),
-        <div className="check-all" onClick={(e) => enlargeWindow('surger', id, 'all', cthis, e)}>查看全部 &nbsp;(13) <img src={icon_arrow_right}/> </div>
+        <div className="check-all"
+            onClick={e => enlargeWindow('surger', id, 'all', cthis, e)}>查看全部 &nbsp;(13)
+                <img src={icon_arrow_right}/>
+        </div>
     ];
 };
 const getTabs = level => {
@@ -189,12 +207,14 @@ class TreatMehods extends Component {
                         return <Tabs defaultActiveKey="1">
                                 {
                                     drugLists.length
-                                        ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
+                                        ? <TabPane tab="用药方案" key="1">
+                                            {getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
                                         : ''
                                 }
                                 {
                                     surgeryLists.length
-                                        ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
+                                        ? <TabPane tab="手术方案" key="2">
+                                            {getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
                                         : ''
                                 }
                             </Tabs>;
@@ -220,12 +240,14 @@ class TreatMehods extends Component {
                         <Tabs defaultActiveKey="1" className="second-tab">
                             {
                                 drugLists.length
-                                ? <TabPane tab="用药方案" key="1">{getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
+                                ? <TabPane tab="用药方案" key="1">
+                                    {getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
                                 : ''
                             }
                             {
                                 surgeryLists.length
-                                ? <TabPane tab="手术方案" key="2">{getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
+                                ? <TabPane tab="手术方案" key="2">
+                                    {getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
                                 : ''
                             }
                         </Tabs>

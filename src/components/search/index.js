@@ -11,7 +11,7 @@ import 'style/antd/antd.css';
 import './index.less';
 const Search = Input.Search;
 // const PATH_URL = process.env.REACT_APP_PATH_URL;
-const PATH_URL = "http://yq01-kg-log0.yq01:8700/v1/search/query/";
+const PATH_URL = 'http://yq01-kg-log0.yq01:8700/v1/search/query/';
 
 class SearchBar extends Component {
     componentDidMount() {
@@ -46,7 +46,7 @@ class SearchBar extends Component {
                     size="large"
                     onSearch={this.handleSearch}
                 />
-                <div className="search-tip" ref={(elem) => this.elem = elem} >请输入查询关键词！</div>
+                <div className="search-tip" ref={elem => this.elem = elem} >请输入查询关键词！</div>
             </div>
         );
     }

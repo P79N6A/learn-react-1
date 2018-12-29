@@ -75,7 +75,8 @@ class DetailArticle extends Component {
 
     render() {
         const result = get(this.props, 'detail.result', null);
-
+        console.log('this.props', this.props);
+        console.log('result', result);
         setTimeout(() => {
             // 初始化线的宽度
             changeLineWidth(result);

@@ -227,7 +227,7 @@ class FormList extends React.Component {
     }
 
     sendRequest = (changeFieldsValue) => {
-        console.log(changeFieldsValue);
+        console.log('changeFieldsValue', changeFieldsValue);
         this.props.sendEmrDetail({
             // path: CDSS_PATH_URL + '?MAC_ADDR=' + 22,
             path: CDSS_PATH_URL,

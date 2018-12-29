@@ -45,8 +45,8 @@ const getEmrDetailContent = result => {
                 <div>
                     <div className="emr-detail">
                         {
-                            dels[1] && !Array.isArray(dels[1]) ?
-                                <span>
+                            dels[1] && !Array.isArray(dels[1])
+                                ? <span>
                                     <span className="emrDetail-item">{dels[0]}</span>
                                     <span className="emrDetail-info">{dels[1]}</span>
                                 </span>
@@ -54,12 +54,12 @@ const getEmrDetailContent = result => {
                         }
 
                         {
-                            dels[1] && Array.isArray(dels[1]) ?
-                                dels[1].map((item, index) => {
-                                    return  <span>
+                            dels[1] && Array.isArray(dels[1])
+                                ? dels[1].map((item, index) => {
+                                    return <span>
                                                 <span className="emrDetail-item">{item['诊断项']}</span>
                                                 <span className="emrDetail-info">{item['诊断结果']}</span>
-                                            </span>
+                                        </span>;
                                 })
                                 : ''
                         }

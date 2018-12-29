@@ -16,7 +16,7 @@ import image_empty from '../../style/img/image_empty.png';
 import image_error from '../../style/img/image_error.png';
 
 // const CDSS_PATH_URL = process.env.REACT_APP_EMR_PATH_URL;
-const CDSS_PATH_URL = "http://yq01-yexianyi.epc.baidu.com:8080/medical-cdss/api/v1/analyze";
+const CDSS_PATH_URL = 'http://yq01-yexianyi.epc.baidu.com:8080/medical-cdss/api/v1/analyze';
 // const WS_CDSS_DEV_PATH = process.env.REACT_APP_WS_PATH_URL;
 const loadError = loadStatus => {
     return loadStatus === 'error' ? (
@@ -144,7 +144,8 @@ class AssistSys extends Component {
                 {
                     advice && advice.length
                         ? <div className="disclaimer-content">
-                                <Link to="/disclaimer" className="disclaimer-title" onClick={this.enlargeWindow}>免责声明</Link>
+                                <Link to="/disclaimer" className="disclaimer-title"
+                                    onClick={this.enlargeWindow}>免责声明</Link>
                                 <p className="disclaimer-note">以上资料及内容仅供参考，实际情况以医生诊断为准</p>
                             </div>
                         : ''

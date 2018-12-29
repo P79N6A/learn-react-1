@@ -23,7 +23,8 @@ class SearchBar extends Component {
         console.log('query', query);
 
         if (!query) {
-            query = localStorage.getItem('backQuery');
+            // query = localStorage.getItem('backQuery');
+            return '';
         }
         console.log('query', query);
 

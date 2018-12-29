@@ -15,8 +15,8 @@ import ModalComponent from '../modal';
 // const PATH_URL = process.env.REACT_APP_PATH_URL;
 // const PATH_DETAIL_URL = process.env.REACT_APP_DETAIL_PATH_URL;
 
-const PATH_URL = "http://yq01-kg-log0.yq01:8700/v1/search/query/";
-const PATH_DETAIL_URL = "http://yq01-kg-log0.yq01:8700/v1/search/id/";
+const PATH_URL = 'http://yq01-kg-log0.yq01:8700/v1/search/query/';
+const PATH_DETAIL_URL = 'http://yq01-kg-log0.yq01:8700/v1/search/id/';
 
 class DiffialDiagnosis extends Component {
     state = {

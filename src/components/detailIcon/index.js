@@ -10,7 +10,7 @@ import {Icon} from 'antd';
 import './index.less';
 
 // const PATH_URL = process.env.REACT_APP_DETAIL_PATH_URL;
-const PATH_URL = "http://yq01-kg-log0.yq01:8700/v1/search/id/";
+const PATH_URL = 'http://yq01-kg-log0.yq01:8700/v1/search/id/';
 class DetailIcon extends Component {
     sendSearchRequest = source => {
         const pathName = 'emr';
@@ -24,18 +24,18 @@ class DetailIcon extends Component {
             }
         });
     }
-    gotoDetail = (kgid, title, name, from) => {
+    gotoDetail = (kgid, title, name, from, e) => {
         try {
             // 放大窗口
             // window.jsObj.enlargeWindow();
             // window.jsObj.showDetailWindow('/detail');
+            e.stopPropagation();
             localStorage.setItem('title', title || name);
             localStorage.setItem('id', kgid);
             localStorage.setItem('pathName', from);
             localStorage.setItem('query', title || name);
 
             const path = PATH_URL + from;
-            console.log('path', path);
             const detailObj = {
                 path,
                 body: {

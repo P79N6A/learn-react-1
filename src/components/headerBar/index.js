@@ -69,12 +69,13 @@ class HeaderBar extends Component {
         });
     }
     setActiveKey = (source, name, e) => {
-        // e.preventDefault();
+        // 阻止冒泡 防止panel展开
+        e.stopPropagation();
         localStorage.setItem('pathName', 'emr');
         localStorage.setItem('activeKey', 'emr');
         localStorage.setItem('backQuery', name);
-
         this.props.switchKey('emr');
+
         if (!Object.keys(source).length) {
             return;
         }
@@ -97,7 +98,7 @@ class HeaderBar extends Component {
                 </span>
 
                 <b>{getRate(switchRate)}</b>
-                <Link to="/search" onClick={this.setActiveKey.bind(this, source, name)}>相似病历</Link>
+                <Link onClick={this.setActiveKey.bind(this, source, name)}>相似病历</Link>
             </div>
         );
     }

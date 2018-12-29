@@ -85,8 +85,7 @@ class ClinicRecommend extends Component {
                             // 判断content内容是否都为空，若是，则隐藏content内容并去除箭头;
                             if (!sign.length && !differentialDiagnosis.length && !testRecommends.length
                                 && !examRecommends.length && !treatments.length) {
-                                // return <Panel key={index} header={headerBar} showArrow={false} disabled></Panel>;
-                                return headerBar;
+                                return <Panel key={index} header={headerBar} showArrow={false} disabled></Panel>;
                             }
                             else {
                                 return <Panel key={index} header={headerBar}>
