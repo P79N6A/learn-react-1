@@ -73,7 +73,8 @@ class DiffialDiagnosis extends Component {
                                     differentialDiagnosis.map((diagnosis, index) => {
                                         const {name, desc, kgid} = diagnosis;
                                         return <div key={index}>
-                                            <span className="auxi-name" data-clipboard-text={name} data-type='auxiliary'>{name || ''}</span>
+                                            <span className="auxi-name" data-clipboard-text={name}
+                                                data-type='auxiliary'>{name || ''}</span>
                                             {
                                                 kgid ? <DetailIcon kgid={kgid} name={name} source={source}
                                                     {...this.props} from="disease"></DetailIcon> : ''

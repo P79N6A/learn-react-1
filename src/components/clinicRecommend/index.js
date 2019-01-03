@@ -65,7 +65,7 @@ clipboard.on('success', function (e) {
                 position: 'absolute',
                 left: pos.left + 80,
                 top: pos.top + auxiliaryBoxHeight
-            })
+            });
         } else {
             $('.copied').css({
                 display: 'inline-block',
