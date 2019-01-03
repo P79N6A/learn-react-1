@@ -48,7 +48,8 @@ const getDrugComponent = (title, treatment, id, cthis) => {
                 {
 
                     drugShow && drugShow.map((list, index) => {
-                        const {name, method, kgid} = list;
+                        // const {name, method, kgid} = list;
+                        const {name, usage, kgid} = list;
 
                         return <div className="recommend-bar" key={index}>
                             <div className="treat-wrap">
@@ -61,7 +62,7 @@ const getDrugComponent = (title, treatment, id, cthis) => {
                             </div>
                             <div className="usage-text">
                                 <span className="auxi-name treat"
-                                    data-clipboard-text={name + method}>{method}</span>
+                                    data-clipboard-text={name + usage}>{usage}</span>
                             </div>
                         </div>;
                     })

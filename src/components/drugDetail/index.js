@@ -21,11 +21,11 @@ const changeLineWidth = result => {
 
     let parWidth = $('.category-bar').width();
     return result.map((cont, index) => {
-            let newIndex = index + 2;
-            let currWidth = $(`.category-bar:nth-child(${newIndex}) .drug-category`).width();
-            let lineWidth = parWidth - currWidth - 11;
-            $(`.line-${index}`).css('width', lineWidth);
-        });
+        let newIndex = index + 2;
+        let currWidth = $(`.category-bar:nth-child(${newIndex}) .drug-category`).width();
+        let lineWidth = parWidth - currWidth - 11;
+        $(`.line-${index}`).css('width', lineWidth);
+    });
 };
 
 const getDrugComponent = (title, treatment, cthis) => {
@@ -47,27 +47,28 @@ const getDrugComponent = (title, treatment, cthis) => {
             {!category
                 ? ''
                 : <div className="drug-category">{category}
-                <span className={currname}></span></div>
+                    <span className={currname}></span></div>
             }
             {
                 drugList && drugList.map((list, index) => {
-                    const {name, method, kgid} = list;
+                    // const {name, method, kgid} = list;
+                    const {name, usage, kgid} = list;
+                    console.log('list', list);
 
-                    let methodArr = method.replace(/\s/g, 'fdfdfdfdfdfdfdfd');
-                    methodArr = method.replace(/\n/g, '<br/>');
+                    let methodArr = usage.replace(/\n/g, '<br/>');
 
                     return <div className="recommend-bar" key={index}>
                         <div className="treat-wrap">
                             <span className="auxi-name treat" data-clipboard-text={name}>{name}</span>
                             {
                                 kgid
-                                ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon>
-                                : ''
+                                    ? <DetailIcon kgid={kgid} {...cthis.props} title={name} from="drug"></DetailIcon>
+                                    : ''
                             }
                         </div>
                         <div className="usage-text">
-                            <span className="auxi-name treat" data-clipboard-text={name + method}
-                            dangerouslySetInnerHTML = {{__html: methodArr}}></span>
+                            <span className="auxi-name treat" data-clipboard-text={name + usage}
+                                dangerouslySetInnerHTML={{__html: methodArr}}></span>
                         </div>
                     </div>;
                 })
@@ -119,6 +120,7 @@ const getSurgerComponent = (title, treatment, cthis) => {
         })];
 };
 const getTabs = level => {
+    console.log('getTabs');
     let tabContent = '';
     switch (level) {
         case 1:
@@ -133,6 +135,7 @@ const getTabs = level => {
         default:
             break;
     }
+    console.log('tabContent', tabContent);
     return tabContent;
 };
 function callback(key) {
@@ -195,19 +198,19 @@ class DrugDetail extends Component {
                         // 用药方案
                         const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
                         return <Tabs defaultActiveKey={cthis.state.type} className="child-tabs">
-                                {
-                                    drugLists.length
-                                        ? <TabPane tab="用药方案" key="drug">
-                                            {getDrugComponent('用药方案', treatment, cthis)}</TabPane>
-                                        : ''
-                                }
-                                {
-                                    surgeryLists.length
-                                        ? <TabPane tab="手术方案" key="surger">
-                                            {getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
-                                        : ''
-                                }
-                            </Tabs>;
+                            {
+                                drugLists.length
+                                    ? <TabPane tab="用药方案" key="drug">
+                                        {getDrugComponent('用药方案', treatment, cthis)}</TabPane>
+                                    : ''
+                            }
+                            {
+                                surgeryLists.length
+                                    ? <TabPane tab="手术方案" key="surger">
+                                        {getSurgerComponent('手术方案', treatment, cthis)}</TabPane>
+                                    : ''
+                            }
+                        </Tabs>;
                     })
                 }
             </div>;
@@ -226,7 +229,7 @@ class DrugDetail extends Component {
                     // 用药方案
                     const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
 
-                    return <TabPane tab={getTabs(treatment.level + 1)} key={index + 1} level={treatment.level}>
+                    return <TabPane tab={getTabs(treatment.level)} key={index + 1} level={treatment.level}>
                         <Tabs defaultActiveKey={cthis.state.type} className="child-tabs">
                             {
                                 drugLists.length
@@ -260,7 +263,7 @@ class DrugDetail extends Component {
 
         return (
             <div className="drug-detail">
-                 <div>
+                <div>
                     {
                         getTreatMehods(treatments, this)
                     }

@@ -20,22 +20,25 @@ const Panel = Collapse.Panel;
 
 const clipboard = new Clipboard('.auxi-name');
 clipboard.on('success', function (e) {
-    console.info('Action:', e.action);
-    console.info('Text:', e.text);
-    console.info('Trigger:', e.trigger);
-    console.log('已经复制到剪贴板');
     const pos = $(e.trigger).position();
-    console.log(pos.left);
-    console.log(pos.top);
-
     if ($(e.trigger).hasClass('treat')) {
         let auxiliaryHeight = $('.ant-collapse-item-active .auxiliary-box:nth-child(4)').position().top;
-        let add1 = $('.ant-collapse-item-active .ant-tabs').position().top;
+
+        // let add1 = $('.ant-collapse-item-active .ant-tabs').position().top;
+
+        let add1 = 0;
+        // 有轻、中、重 三个tab
+        if ($('.second-tab').length) {
+            add1 = $('.ant-collapse-item-active .second-tab').position().top + 42;
+        } else {
+            add1 = 42;
+        }
+
         $('.copied').css({
             display: 'inline-block',
             position: 'absolute',
             left: pos.left + 80,
-            top: pos.top + auxiliaryHeight + add1 + 42
+            top: pos.top + auxiliaryHeight + add1
         });
     } else {
         const type = $(e.trigger).attr('data-type');

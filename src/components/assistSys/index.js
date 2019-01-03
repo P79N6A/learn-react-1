@@ -49,6 +49,7 @@ class AssistSys extends Component {
     }
     componentDidMount() {
         window.getEmrData = emrData => {
+            // localStorage.setItem('emrData', JSON.stringify(emrData));
             const event = new CustomEvent('nv-enter', {
                 detail: {
                     message: emrData
@@ -85,8 +86,9 @@ class AssistSys extends Component {
         });
     };
 
-    enlargeWindow = () => {
-        // window.jsObj.showDetailWindow('disclaimer');
+    enlargeWindow = e => {
+        // e.preventDefault();
+        // window.jsObj.showDetailWindow('disclaimer', '免责声明', '');
     }
 
     render() {
