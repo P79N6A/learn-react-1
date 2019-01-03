@@ -62,7 +62,7 @@ const changeLineWidth = result => {
             let newIndex = index + 2;
             let currWidth = $(`.detail-box .detail-content:nth-child(${newIndex}) .detail-title2`).width();
             let lineWidth = parWidth - currWidth - 11;
-            console.log('lineWidth', lineWidth);
+            // console.log('lineWidth', lineWidth);
             $(`.line-${index}`).css('width', lineWidth);
         });
     });

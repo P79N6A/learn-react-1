@@ -35,50 +35,50 @@ const getDrugComponent = (title, treatment, id, cthis) => {
     const categoryShowList = categoryLen > categoryLimit ? categoryLists.slice(0, categoryLimit) : categoryLists;
 
     return [
-            categoryShowList.map((categoryItem, index) => {
-                const {kgid, category, drugList} = categoryItem;
-                if (!drugList || !drugList.length) {
-                    return '';
+        categoryShowList.map((categoryItem, index) => {
+            const {kgid, category, drugList} = categoryItem;
+            if (!drugList || !drugList.length) {
+                return '';
+            }
+            const drugLen = drugList.length;
+            const drugShow = drugLen > drugLimit ? drugList.slice(0, drugLimit) : drugList;
+            return <div className="category-bar" key={index}>
+                <div className="category-line"></div>
+                <div className="drug-category">{category}</div>
+                {
+
+                    drugShow && drugShow.map((list, index) => {
+                        const {name, method, kgid} = list;
+
+                        return <div className="recommend-bar" key={index}>
+                            <div className="treat-wrap">
+                                <span className="auxi-name treat"
+                                    data-clipboard-text={name}>{name}</span>
+                                {
+                                    kgid ? <DetailIcon kgid={kgid} {...cthis.props} title={name}
+                                        from="drug"></DetailIcon> : ''
+                                }
+                            </div>
+                            <div className="usage-text">
+                                <span className="auxi-name treat"
+                                    data-clipboard-text={name + method}>{method}</span>
+                            </div>
+                        </div>;
+                    })
                 }
-                const drugLen = drugList.length;
-                const drugShow = drugLen > drugLimit ? drugList.slice(0, drugLimit) : drugList;
-                return <div className="category-bar" key={index}>
-                            <div className="category-line"></div>
-                                <div className="drug-category">{category}</div>
-                                {
-
-                                    drugShow && drugShow.map((list, index) => {
-                                        const {name, method, kgid} = list;
-
-                                        return <div className="recommend-bar" key={index}>
-                                            <div className="treat-wrap">
-                                                <span className="auxi-name treat"
-                                                    data-clipboard-text={name + method}>{name}</span>
-                                                {
-                                                    kgid ? <DetailIcon kgid={kgid} {...cthis.props}
-                                                    title={name} from="drug"></DetailIcon> : ''
-                                                }
-                                            </div>
-                                            <div className="usage-text">
-                                                <span className="auxi-name treat"
-                                                data-clipboard-text={name + method}>{method}</span>
-                                            </div>
-                                        </div>;
-                                    })
-                                }
-                                {
-                                    drugList
-                                        && drugList.length > drugLimit
-                                        && <Link className="check-more"
-                                        onClick={e => enlargeWindow('drug', id, category, cthis, e)}>查看更多</Link>
-                                }
-                    </div>;
-            }),
-            <div className="check-all"
-                onClick={e => enlargeWindow('drug', id, 'all', cthis, e)}>查看全部 &nbsp;(13)
-                <img src={icon_arrow_right}/>
-            </div>
-        ];
+                {
+                    drugList
+                    && drugList.length > drugLimit
+                    && <Link className="check-more"
+                        onClick={e => enlargeWindow('drug', id, category, cthis, e)}>查看更多</Link>
+                }
+            </div>;
+        }),
+        <div className="check-all"
+            onClick={e => enlargeWindow('drug', id, 'all', cthis, e)}>查看全部 &nbsp;(13)
+                <img src={icon_arrow_right} />
+        </div>
+    ];
 };
 
 const getSurgerComponent = (title, treatment, id, cthis) => {
@@ -123,7 +123,7 @@ const getSurgerComponent = (title, treatment, id, cthis) => {
         }),
         <div className="check-all"
             onClick={e => enlargeWindow('surger', id, 'all', cthis, e)}>查看全部 &nbsp;(13)
-                <img src={icon_arrow_right}/>
+                <img src={icon_arrow_right} />
         </div>
     ];
 };
@@ -205,19 +205,19 @@ class TreatMehods extends Component {
                         // 用药方案
                         const surgeryLists = get(treatment, 'surgeryRecommends.list', []);
                         return <Tabs defaultActiveKey="1">
-                                {
-                                    drugLists.length
-                                        ? <TabPane tab="用药方案" key="1">
-                                            {getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
-                                        : ''
-                                }
-                                {
-                                    surgeryLists.length
-                                        ? <TabPane tab="手术方案" key="2">
-                                            {getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
-                                        : ''
-                                }
-                            </Tabs>;
+                            {
+                                drugLists.length
+                                    ? <TabPane tab="用药方案" key="1">
+                                        {getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
+                                    : ''
+                            }
+                            {
+                                surgeryLists.length
+                                    ? <TabPane tab="手术方案" key="2">
+                                        {getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
+                                    : ''
+                            }
+                        </Tabs>;
                     })
                 }
             </div>;
@@ -226,7 +226,7 @@ class TreatMehods extends Component {
             defaultActiveKey="1"
             onChange={this.callback}
             type="card"
-            className="treat-tab">
+            className="common-treatments">
             {
                 treatments.map((treatment, index) => {
                     const cthis = this;
@@ -240,15 +240,15 @@ class TreatMehods extends Component {
                         <Tabs defaultActiveKey="1" className="second-tab">
                             {
                                 drugLists.length
-                                ? <TabPane tab="用药方案" key="1">
-                                    {getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
-                                : ''
+                                    ? <TabPane tab="用药方案" key="1">
+                                        {getDrugComponent('用药方案', treatment, id, cthis)}</TabPane>
+                                    : ''
                             }
                             {
                                 surgeryLists.length
-                                ? <TabPane tab="手术方案" key="2">
-                                    {getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
-                                : ''
+                                    ? <TabPane tab="手术方案" key="2">
+                                        {getSurgerComponent('手术方案', treatment, id, cthis)}</TabPane>
+                                    : ''
                             }
                         </Tabs>
                     </TabPane>;

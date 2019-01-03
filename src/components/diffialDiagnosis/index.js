@@ -49,16 +49,16 @@ class DiffialDiagnosis extends Component {
             }
         });
     }
-    gotoDetail = kgid => {
-        const detailObj = {
-            path: PATH_DETAIL_URL + 'disease',
-            body: {
-                id: [kgid]
-            }
-        };
-        this.props.searchDetail(detailObj);
-        browserHistory.push('detail');
-    }
+    // gotoDetail = kgid => {
+    //     const detailObj = {
+    //         path: PATH_DETAIL_URL + 'disease',
+    //         body: {
+    //             id: [kgid]
+    //         }
+    //     };
+    //     this.props.searchDetail(detailObj);
+    //     browserHistory.push('detail');
+    // }
     render() {
         const differentialDiagnosis = get(this.props, 'differentialDiagnosis', []);
         const source = this.props.source;
@@ -73,7 +73,7 @@ class DiffialDiagnosis extends Component {
                                     differentialDiagnosis.map((diagnosis, index) => {
                                         const {name, desc, kgid} = diagnosis;
                                         return <div key={index}>
-                                            <span className="auxi-name" data-clipboard-text={name}>{name || ''}</span>
+                                            <span className="auxi-name" data-clipboard-text={name} data-type='auxiliary'>{name || ''}</span>
                                             {
                                                 kgid ? <DetailIcon kgid={kgid} name={name} source={source}
                                                     {...this.props} from="disease"></DetailIcon> : ''

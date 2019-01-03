@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import {Link, browserHistory} from 'react-router';
 import {Icon} from 'antd';
 import DetailIcon from '../detailIcon';
+import selected from '../../style/img/selected.svg';
 import './index.less';
 
 // const PATH_DETAIL_URL = process.env.REACT_APP_DETAIL_PATH_URL;
@@ -73,10 +74,12 @@ class HeaderBar extends Component {
         e.stopPropagation();
         localStorage.setItem('pathName', 'emr');
         localStorage.setItem('activeKey', 'emr');
-        localStorage.setItem('backQuery', name);
+        localStorage.setItem('searchQuery', name);
+        localStorage.setItem('page', 1);
+        localStorage.setItem('pageSize', 10);
         this.props.switchKey('emr');
 
-        if (!Object.keys(source).length) {
+        if (source && !Object.keys(source).length) {
             return;
         }
         this.sendSearchRequest(source, name);
@@ -93,11 +96,14 @@ class HeaderBar extends Component {
                 <span className="clinic-name">
                     {name || ''}
                     {
+                        rate === 1 ? <img src={selected} /> : ''
+                    }
+                    {
                         kgid ? <DetailIcon {...this.props} from="disease"></DetailIcon> : ''
                     }
                 </span>
 
-                <b>{getRate(switchRate)}</b>
+                {/* <b>{getRate(switchRate)}</b> */}
                 <Link onClick={this.setActiveKey.bind(this, source, name)}>相似病历</Link>
             </div>
         );

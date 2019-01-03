@@ -20,13 +20,13 @@ class SearchBar extends Component {
     componentDidMount() {
         // 如果没有主搜索 就用返回的query
         let query = localStorage.getItem('searchQuery');
-        console.log('query', query);
 
         if (!query) {
-            // query = localStorage.getItem('backQuery');
-            return '';
+            query = localStorage.getItem('backQuery');
         }
-        console.log('query', query);
+        if (!query) {
+            query = localStorage.getItem('backQuery');
+        }
 
         this.setState({
             query

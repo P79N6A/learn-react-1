@@ -29,7 +29,7 @@ class TestRecommends extends Component {
             visible: false
         });
     }
-    getTestRecommend = (name, recommends) => {
+    getTestRecommend = (name, recommends, type) => {
         if (!recommends || !recommends.length) {
             return '';
         }
@@ -39,7 +39,7 @@ class TestRecommends extends Component {
                 {recommends.map((test, index) => {
                     const {name, desc} = test;
                     return <div key={index}>
-                        <span className="auxi-name" data-clipboard-text={name}>
+                        <span className="auxi-name" data-clipboard-text={name} data-type={type}>
                             {name}
                         </span>
                         {desc ? <Icon className="icon-search" type="question-circle" theme="outlined"
@@ -54,10 +54,10 @@ class TestRecommends extends Component {
         return (
             <div className="auxiliary-box">
                 {
-                    this.getTestRecommend('检验项目推荐', testRecommends)
+                    this.getTestRecommend('检验项目推荐', testRecommends, 'test')
                 }
                 {
-                    this.getTestRecommend('检查项目推荐', examRecommends)
+                    this.getTestRecommend('检查项目推荐', examRecommends, 'exam')
                 }
                 <ModalComponent name={this.state.name} desc={this.state.desc}
                     onCancel={this.handleCancel} visible={this.state.visible}></ModalComponent>

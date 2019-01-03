@@ -28,12 +28,51 @@ clipboard.on('success', function (e) {
     console.log(pos.left);
     console.log(pos.top);
 
-    $('.copied').css({
-        display: 'inline-block',
-        position: 'absolute',
-        left: pos.left + 80,
-        top: pos.top
-    });
+    if ($(e.trigger).hasClass('treat')) {
+        let auxiliaryHeight = $('.ant-collapse-item-active .auxiliary-box:nth-child(4)').position().top;
+        let add1 = $('.ant-collapse-item-active .ant-tabs').position().top;
+        $('.copied').css({
+            display: 'inline-block',
+            position: 'absolute',
+            left: pos.left + 80,
+            top: pos.top + auxiliaryHeight + add1 + 42
+        });
+    } else {
+        const type = $(e.trigger).attr('data-type');
+
+        let index = -1;
+        switch (type) {
+            case 'auxiliary':
+                index = 2;
+                break;
+            case 'test':
+                index = 3;
+                break;
+            case 'exam':
+                index = 3;
+                break;
+            default:
+                index = -1;
+        }
+
+        if (index !== -1) {
+            let auxiliaryBoxHeight = $(`.ant-collapse-item-active .auxiliary-box:nth-child(${index})`).position().top;
+            $('.copied').css({
+                display: 'inline-block',
+                position: 'absolute',
+                left: pos.left + 80,
+                top: pos.top + auxiliaryBoxHeight
+            })
+        } else {
+            $('.copied').css({
+                display: 'inline-block',
+                position: 'absolute',
+                left: pos.left + 80,
+                top: pos.top
+            });
+        }
+
+    }
 
     setTimeout(function () {
         $('.copied').css({

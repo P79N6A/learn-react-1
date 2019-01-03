@@ -1,6 +1,13 @@
 .treat-recommend {
     .ant-tabs {
+        margin-top: 12px;
         border: none!important;
+    }
+
+    .ant-tabs-content {
+        .ant-tabs {
+            margin-top: 0;
+        }
     }
 
     .ant-tabs-tab {
@@ -72,10 +79,14 @@
     }
 
     .usage-text {
-        white-space:nowrap;
-        text-overflow:ellipsis;
-        -o-text-overflow:ellipsis;
-        overflow:hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        overflow: hidden;
+
+        span {
+            color: #666666;
+        }
     }
 
     .drug-category {

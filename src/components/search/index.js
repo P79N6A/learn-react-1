@@ -28,6 +28,10 @@ class SearchBar extends Component {
         }
         // window.jsObj.enlargeWindow();
         localStorage.setItem('pathName', 'disease');
+
+        localStorage.setItem('page', 1);
+        localStorage.setItem('pageSize', 10);
+
         // 保存query
         localStorage.setItem('searchQuery', query);
         const pathName = 'disease';

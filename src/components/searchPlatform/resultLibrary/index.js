@@ -165,7 +165,7 @@ const getDiseaseResult = (result, dthis, totalNum) => {
             <p>建议换个检索词试试看</p>
         </div>;
     }
-    const pathName =  localStorage.getItem('pathName');
+    const pathName = localStorage.getItem('pathName');
 
     return [
         <div className="paginate-left">
@@ -187,18 +187,30 @@ const getDiseaseResult = (result, dthis, totalNum) => {
 
 class ResultLibrary extends Component {
     state = {
-        current: 1,
-        page: 1,
-        pageSize: 10
+        current: parseInt(localStorage.getItem('page'), 10) || 1,
+        page: parseInt(localStorage.getItem('page'), 10) || 1,
+        pageSize: parseInt(localStorage.getItem('pageSize'), 10) || 10
     }
     init = () => {
         localStorage.setItem('activeKey', '');
+        this.sendSearchRequest(this.state.page, this.state.pageSize);
     }
     componentDidMount() {
         this.init();
     }
     handleCallback = key => {
         this.props.switchKey(key);
+
+        // 切换tab时，重置当前页码
+        this.setState({
+            current: 1,
+            page: 1,
+            pageSize: 10
+        });
+
+        localStorage.setItem('page', 1);
+        localStorage.setItem('pageSize', 10);
+
         localStorage.setItem('pathName', key);
         const path = PATH_URL + key;
         const query = this.props.queryName;
@@ -211,15 +223,16 @@ class ResultLibrary extends Component {
             path
         });
     }
-
     sendSearchRequest = (page, pageSize) => {
-        // const pathName = this.props.pathName || 'disease';
         const pathName = localStorage.getItem('pathName') || 'disease';
         console.log(pathName + '-------pathName');
-        const queryName = this.props.queryName;
+        let query = localStorage.getItem('searchQuery');
+
+        if (!query) {
+            query = localStorage.getItem('backQuery');
+        }
+
         const path = PATH_URL + pathName;
-        // const query = queryName || '支气管哮喘';
-        const query = queryName || '';
         this.props.searchDisease({
             path,
             body: {
@@ -234,9 +247,8 @@ class ResultLibrary extends Component {
             current: page,
             page
         });
-
+        localStorage.setItem('page', page);
         setTimeout(() => {
-            console.log('current', this.state.current);
             this.handleSubmit();
         }, 0);
 
@@ -247,7 +259,7 @@ class ResultLibrary extends Component {
         this.setState({
             pageSize: transValueToCurrent(value.substr(0, 2))
         });
-
+        localStorage.setItem('pageSize', transValueToCurrent(value.substr(0, 2)));
         setTimeout(() => {
             this.handleSubmit();
         }, 0);

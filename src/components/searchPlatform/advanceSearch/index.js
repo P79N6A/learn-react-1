@@ -19,45 +19,44 @@ import {
 import 'style/antd/antd.css';
 import './index.less';
 
-// const PATH_URL = process.env.REACT_APP_PATH_URL;
-const PATH_URL = 'http://yq01-kg-log0.yq01:8700/v1/search/query/';
+const PATH_URL = process.env.REACT_APP_PATH_URL;
 const FormItem = Form.Item;
 const Option = Select.Option;
 let schema = require('async-validator');
 const formItemLayout = {
     labelCol: {
-        lg: {span: 7},
-        sm: {span: 9}
+        lg: {span: 5},
+        sm: {span: 8}
     },
     wrapperCol: {
-        sm: {span: 15}
+        sm: {span: 16}
     }
 };
 
 const formItemLayout1 = {
     labelCol: {
-        lg: {span: 7},
-        sm: {span: 9}
+        lg: {span: 5},
+        sm: {span: 8}
     },
     wrapperCol: {
-        sm: {span: 14}
+        sm: {span: 16}
     }
 };
 
 const formItemLayout3 = {
     labelCol: {
-        lg: {span: 6},
-        sm: {span: 10}
+        lg: {span: 3},
+        sm: {span: 6}
     },
     wrapperCol: {
-        sm: {span: 14}
+        sm: {span: 16}
     }
 };
 
 const formItemLayout2 = {
     labelCol: {
-        lg: {span: 6}, // >992px
-        sm: {span: 8}
+        lg: {span: 4}, // >992px
+        sm: {span: 6}
     },
     wrapperCol: {
         sm: {span: 15}
@@ -134,20 +133,20 @@ const getDate = time => {
 };
 
 const formatSex = sex => {
-    return sex == '性别不限' ? '' : sex;
-}
+    return sex === '性别不限' ? '' : sex;
+};
 
 const formatDepartment = depart => {
-    return depart == '全部科室' ? '' : depart;
-}
+    return depart === '全部科室' ? '' : depart;
+};
 
 const formatAge = ageRanage => {
     let ageStack = [];
-    if (ageRanage[0] && ageRanage[1] && ageRanage[0] != 'undefined' && ageRanage[1] != 'undefined') {
+    if (ageRanage[0] && ageRanage[1] && ageRanage[0] !== 'undefined' && ageRanage[1] !== 'undefined') {
         ageStack = ageRanage;
     }
     return ageStack;
-}
+};
 
 class AdvanceSearch extends Component {
     handleSubmit = e => {
@@ -211,7 +210,7 @@ class AdvanceSearch extends Component {
             <div className="advance-search-box">
                 <Form layout="inline" onSubmit={this.handleSubmit}>
                     <Row type="flex" justify="space-between">
-                        <Col span={4} className="form-item">
+                        <Col span={6} className="form-item">
                             <FormItem
                                 label="就诊时间"
                                 {...formItemLayout}
@@ -226,7 +225,7 @@ class AdvanceSearch extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col span={4} className="form-item">
+                        <Col span={6} className="form-item">
                             <FormItem
                                 label="所在科室"
                                 {...formItemLayout1}
@@ -241,7 +240,7 @@ class AdvanceSearch extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col span={3} className="form-item">
+                        <Col span={5} className="form-item">
                             <FormItem
                                 label="性别"
                                 hasFeedback
@@ -258,12 +257,12 @@ class AdvanceSearch extends Component {
                                 )}
                             </FormItem>
                         </Col>
-                        <Col span={3} className="form-item">
+                        <Col span={5} className="form-item">
                             <FormItem
                                 label="年龄"
                                 {...formItemLayout2}
                             >
-                                <Col span={10}>
+                                <Col span={11}>
                                     <FormItem>
                                         {getFieldDecorator('age-from', ageConfig)(
                                             <Input />
@@ -274,7 +273,7 @@ class AdvanceSearch extends Component {
                                 <Col span={2}>
                                     <span>-</span>
                                 </Col>
-                                <Col span={10}>
+                                <Col span={11}>
                                     <FormItem>
                                         {getFieldDecorator('age-to', ageConfig)(
                                             <Input />
@@ -288,7 +287,7 @@ class AdvanceSearch extends Component {
                                 <Checkbox onChange={onChange} className="check-box">仅显示首诊</Checkbox>
                             )}
                         </Col> */}
-                        <Col span={4}>
+                        <Col span={2} className="btn-wrapper">
                             <Button htmlType="submit">确定</Button>
                         </Col>
 
