@@ -1,8 +1,3 @@
-/**
- * @file configureStore.js
- * @author lixiaoqin@baidu.com
- */
-
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import thunk from 'redux-thunk';

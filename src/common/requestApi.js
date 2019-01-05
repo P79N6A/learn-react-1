@@ -1,10 +1,4 @@
-/**
- * @file index.js
- * @author lixiaoqin@baidu.com
- */
-
 import fetch from 'cross-fetch';
-
 export const HTTP_REQUEST = Symbol('HTTP_REQUEST');
 export const HTTP_RESPONSE = Symbol('HTTP_RESPONSE');
 
